@@ -19,14 +19,15 @@
 
 package troy.autofish.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.GuiLighting;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.StringRenderable;
 import net.minecraft.util.Identifier;
 import org.lwjgl.opengl.GL11;
 
@@ -132,9 +133,9 @@ public class GuiUtils {
     public static void drawContinuousTexturedBox(int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight,
 
                                                  int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel) {
-        GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-        GlStateManager.enableBlend();
-        GlStateManager.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
 
         int fillerWidth = textureWidth - leftBorder - rightBorder;
         int fillerHeight = textureHeight - topBorder - bottomBorder;
@@ -180,8 +181,8 @@ public class GuiUtils {
         final float vScale = 1f / 0x100;
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder wr = tessellator.getBufferBuilder();
-        wr.begin(GL11.GL_QUADS, VertexFormats.POSITION_UV);
+        BufferBuilder wr = tessellator.getBuffer();
+        wr.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
         wr.vertex(x, y + height, zLevel).texture(u * uScale, ((v + height) * vScale)).next();
         wr.vertex(x + width, y + height, zLevel).texture((u + width) * uScale, ((v + height) * vScale)).next();
         wr.vertex(x + width, y, zLevel).texture((u + width) * uScale, (v * vScale)).next();
@@ -204,26 +205,23 @@ public class GuiUtils {
      *                     Set to a negative number to have no max width.
      * @param font         the font for drawing the text in the tooltip box
      */
-    public static void drawHoveringText(List<String> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, TextRenderer font) {
-        drawHoveringText(cachedTooltipStack, textLines, mouseX, mouseY, screenWidth, screenHeight, maxTextWidth, font);
+    public static void drawHoveringText(MatrixStack matrixStack, List<StringRenderable> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, TextRenderer font) {
+        drawHoveringText(matrixStack, cachedTooltipStack, textLines, mouseX, mouseY, screenWidth, screenHeight, maxTextWidth, font);
     }
 
     /**
      * Use this version if calling from somewhere where ItemStack context is available.
      *
-     * @see #drawHoveringText(List, int, int, int, int, int, TextRenderer)
      */
-    public static void drawHoveringText(final ItemStack stack, List<String> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, TextRenderer font) {
+    public static void drawHoveringText(MatrixStack matrixStack, final ItemStack stack, List<StringRenderable> textLines, int mouseX, int mouseY, int screenWidth, int screenHeight, int maxTextWidth, TextRenderer font) {
         if (!textLines.isEmpty()) {
 
-            GlStateManager.disableRescaleNormal();
-            GuiLighting.disable();
-            GlStateManager.disableLighting();
-            GlStateManager.disableDepthTest();
+            RenderSystem.disableRescaleNormal();
+            RenderSystem.disableDepthTest();
             int tooltipTextWidth = 0;
 
-            for (String textLine : textLines) {
-                int textLineWidth = font.getStringWidth(textLine);
+            for (StringRenderable textLine : textLines) {
+                int textLineWidth = font.getWidth(textLine);
 
                 if (textLineWidth > tooltipTextWidth) {
                     tooltipTextWidth = textLineWidth;
@@ -254,16 +252,16 @@ public class GuiUtils {
 
             if (needsWrap) {
                 int wrappedTooltipWidth = 0;
-                List<String> wrappedTextLines = new ArrayList<String>();
+                List<StringRenderable> wrappedTextLines = new ArrayList<StringRenderable>();
                 for (int i = 0; i < textLines.size(); i++) {
-                    String textLine = textLines.get(i);
-                    List<String> wrappedLine = font.wrapStringToWidthAsList(textLine, tooltipTextWidth);
+                    StringRenderable textLine = textLines.get(i);
+                    List<StringRenderable> wrappedLine = font.wrapLines(textLine, tooltipTextWidth);
                     if (i == 0) {
                         titleLinesCount = wrappedLine.size();
                     }
 
-                    for (String line : wrappedLine) {
-                        int lineWidth = font.getStringWidth(line);
+                    for (StringRenderable line : wrappedLine) {
+                        int lineWidth = font.getWidth(line);
                         if (lineWidth > wrappedTooltipWidth) {
                             wrappedTooltipWidth = lineWidth;
                         }
@@ -314,8 +312,8 @@ public class GuiUtils {
             int tooltipTop = tooltipY;
 
             for (int lineNumber = 0; lineNumber < textLines.size(); ++lineNumber) {
-                String line = textLines.get(lineNumber);
-                font.drawWithShadow(line, (float) tooltipX, (float) tooltipY, -1);
+                StringRenderable line = textLines.get(lineNumber);
+                font.drawWithShadow(matrixStack, line, (float) tooltipX, (float) tooltipY, -1);
 
                 if (lineNumber + 1 == titleLinesCount) {
                     tooltipY += 2;
@@ -324,10 +322,8 @@ public class GuiUtils {
                 tooltipY += 10;
             }
 
-            GlStateManager.enableLighting();
-            GlStateManager.enableDepthTest();
-            GuiLighting.enable();
-            GlStateManager.enableRescaleNormal();
+            RenderSystem.enableDepthTest();
+            RenderSystem.enableRescaleNormal();
         }
     }
 
@@ -341,14 +337,14 @@ public class GuiUtils {
         float endGreen = (float) (endColor >> 8 & 255) / 255.0F;
         float endBlue = (float) (endColor & 255) / 255.0F;
 
-        GlStateManager.disableTexture();
-        GlStateManager.enableBlend();
-        GlStateManager.disableAlphaTest();
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        RenderSystem.disableTexture();
+        RenderSystem.enableBlend();
+        RenderSystem.disableAlphaTest();
+        RenderSystem.defaultBlendFunc();
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
 
         Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBufferBuilder();
+        BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR);
         buffer.vertex(right, top, zLevel).color(startRed, startGreen, startBlue, startAlpha).next();
         buffer.vertex(left, top, zLevel).color(startRed, startGreen, startBlue, startAlpha).next();
@@ -356,9 +352,9 @@ public class GuiUtils {
         buffer.vertex(right, bottom, zLevel).color(endRed, endGreen, endBlue, endAlpha).next();
         tessellator.draw();
 
-        GlStateManager.shadeModel(GL11.GL_FLAT);
-        GlStateManager.disableBlend();
-        GlStateManager.enableAlphaTest();
-        GlStateManager.enableTexture();
+        RenderSystem.shadeModel(GL11.GL_FLAT);
+        RenderSystem.disableBlend();
+        RenderSystem.enableAlphaTest();
+        RenderSystem.enableTexture();
     }
 }

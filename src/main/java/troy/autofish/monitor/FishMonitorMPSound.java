@@ -1,11 +1,11 @@
 package troy.autofish.monitor;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.packet.PlaySoundFromEntityS2CPacket;
-import net.minecraft.client.network.packet.PlaySoundIdS2CPacket;
-import net.minecraft.client.network.packet.PlaySoundS2CPacket;
-import net.minecraft.entity.projectile.FishHookEntity;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.PlaySoundFromEntityS2CPacket;
+import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
+import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
 import troy.autofish.Autofish;
 
 public class FishMonitorMPSound implements FishMonitorMP {
@@ -13,7 +13,7 @@ public class FishMonitorMPSound implements FishMonitorMP {
     public static final double HOOKSOUND_DISTANCESQ_THRESHOLD = 25D;
 
     @Override
-    public void hookTick(Autofish autofish, MinecraftClient minecraft, FishHookEntity hook) {
+    public void hookTick(Autofish autofish, MinecraftClient minecraft, FishingBobberEntity hook) {
     }
 
     @Override
@@ -48,7 +48,7 @@ public class FishMonitorMPSound implements FishMonitorMP {
 
             if (soundName.equalsIgnoreCase("minecraft:entity.fishing_bobber.splash") || soundName.equalsIgnoreCase("entity.fishing_bobber.splash")) {
 
-                FishHookEntity hook = minecraft.player.fishHook;
+                FishingBobberEntity hook = minecraft.player.fishHook;
                 if (!autofish.hasQueuedRecast() && hook != null) {
                     if (hook.squaredDistanceTo(x, y, z) < HOOKSOUND_DISTANCESQ_THRESHOLD) {
                         autofish.reel();

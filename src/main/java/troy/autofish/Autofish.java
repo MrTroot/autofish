@@ -2,14 +2,15 @@ package troy.autofish;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.packet.ChatMessageS2CPacket;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Hand;
 import troy.autofish.monitor.FishMonitorMP;
@@ -88,10 +89,12 @@ public class Autofish {
      *
      * @param packet
      */
-    public void handleChat(ChatMessageS2CPacket packet) {
+    public void handleChat(GameMessageS2CPacket packet) {
         if (mod.getConfig().isAutofishEnabled()) {
             if (!minecraft.isInSingleplayer()) {
                 if (holdingFishingRod()) {
+                    //check that either the hook exists, or it was just removed
+                    //this prevents false casts if we are holding a rod but not fishing
                     if (hookExists || (timeMillis - hookRemovedAt < 2000)) {
                         //make sure there is actually something there in the regex field
                         if (org.apache.commons.lang3.StringUtils.deleteWhitespace(mod.getConfig().getClearLagRegex()).isEmpty())
@@ -111,12 +114,12 @@ public class Autofish {
      * Callback from mixin for the catchingFish method of the EntityFishHook
      * for singleplayer detection only
      */
-    public void catchingFishTick(PlayerEntity angler, int ticksCatchable) {
+    public void tickFishingLogic(Entity owner, int ticksCatchable) {
         if (mod.getConfig().isAutofishEnabled() && minecraft.isInSingleplayer()) {
             //null checks for sanity
             if (minecraft.player != null && minecraft.player.fishHook != null) {
                 //hook is catchable and player is correct
-                if (ticksCatchable > 0 && angler.getUuid().compareTo(minecraft.player.getUuid()) == 0) {
+                if (ticksCatchable > 0 && owner.getUuid().compareTo(minecraft.player.getUuid()) == 0) {
                     if (!hasQueuedRecast()) {
                         reel();
                     }
@@ -146,7 +149,7 @@ public class Autofish {
             //TODO dont use 63 since the durability could change if it's a modded rod
             boolean cast = true;
             if (mod.getConfig().isNoBreak() && getHeldItem().getDamage() >= 63) cast = false;
-            if(hookExists) cast = false;
+            if (hookExists) cast = false;
             if (cast) {
                 useRod();
             }
@@ -221,7 +224,16 @@ public class Autofish {
     }
 
     public void useRod() {
-        minecraft.interactionManager.interactItem(minecraft.player, minecraft.world, getCorrectHand());
+
+        Hand hand = getCorrectHand();
+        ActionResult actionResult = minecraft.interactionManager.interactItem(minecraft.player, minecraft.world, hand);
+        if (actionResult.isAccepted()) {
+            if (actionResult.shouldSwingHand()) {
+                minecraft.player.swingHand(hand);
+            }
+            minecraft.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
+            return;
+        }
     }
 
     public boolean holdingFishingRod() {

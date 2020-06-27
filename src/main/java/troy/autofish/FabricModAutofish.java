@@ -5,10 +5,10 @@ import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding;
 import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.event.client.ClientTickCallback;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.packet.ChatMessageS2CPacket;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.util.Identifier;
 import troy.autofish.config.Config;
 import troy.autofish.config.ConfigManager;
@@ -57,18 +57,18 @@ public class FabricModAutofish implements ClientModInitializer, ClientTickCallba
     /**
      * Mixin callback for chat packets
      */
-    public void handleChat(ChatMessageS2CPacket packet) {
+    public void handleChat(GameMessageS2CPacket packet) {
         autofish.handleChat(packet);
     }
 
     /**
      * Mixin callback for catchingFish method of EntityFishHook (singleplayer detection)
      *
-     * @param angler         The player using this fish hook
+     * @param owner         The player using this fish hook
      * @param ticksCatchable When this is greater than 0, we can reel it in
      */
-    public void catchingFishTick(PlayerEntity angler, int ticksCatchable) {
-        autofish.catchingFishTick(angler, ticksCatchable);
+    public void tickFishingLogic(Entity owner, int ticksCatchable) {
+        autofish.tickFishingLogic(owner, ticksCatchable);
     }
 
     public static FabricModAutofish getInstance() {

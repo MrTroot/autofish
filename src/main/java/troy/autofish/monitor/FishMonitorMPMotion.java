@@ -2,9 +2,14 @@ package troy.autofish.monitor;
 
 import net.minecraft.block.Material;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.packet.EntityVelocityUpdateS2CPacket;
-import net.minecraft.entity.projectile.FishHookEntity;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.network.Packet;
+import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
+import net.minecraft.util.function.MaterialPredicate;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import troy.autofish.Autofish;
 
 public class FishMonitorMPMotion implements FishMonitorMP {
@@ -18,8 +23,8 @@ public class FishMonitorMPMotion implements FishMonitorMP {
 
 
     @Override
-    public void hookTick(Autofish autofish, MinecraftClient minecraft, FishHookEntity hook) {
-        if (hook.world.containsBlockWithMaterial(hook.getBoundingBox(), Material.WATER)) {
+    public void hookTick(Autofish autofish, MinecraftClient minecraft, FishingBobberEntity hook) {
+        if (worldContainsBlockWithMaterial(hook.world, hook.getBoundingBox(), Material.WATER)) {
             hasHitWater = true;
         }
     }
@@ -51,5 +56,18 @@ public class FishMonitorMPMotion implements FishMonitorMP {
                 }
             }
         }
+    }
+
+    public static boolean worldContainsBlockWithMaterial(World world, Box box, Material material) {
+        int i = MathHelper.floor(box.minX);
+        int j = MathHelper.ceil(box.maxX);
+        int k = MathHelper.floor(box.minY);
+        int l = MathHelper.ceil(box.maxY);
+        int m = MathHelper.floor(box.minZ);
+        int n = MathHelper.ceil(box.maxZ);
+        MaterialPredicate materialPredicate = MaterialPredicate.create(material);
+        return BlockPos.stream(i, k, m, j - 1, l - 1, n - 1).anyMatch((blockPos) -> {
+            return materialPredicate.test(world.getBlockState(blockPos));
+        });
     }
 }
