@@ -13,58 +13,60 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ChatUtil;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import troy.autofish.monitor.FishMonitorMP;
 import troy.autofish.monitor.FishMonitorMPMotion;
 import troy.autofish.monitor.FishMonitorMPSound;
+import troy.autofish.scheduler.ActionType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Autofish {
 
-    private MinecraftClient minecraft;
+    private MinecraftClient client;
+    private FabricModAutofish modAutofish;
     private FishMonitorMP fishMonitorMP;
-    private FabricModAutofish mod;
 
     private boolean hookExists = false;
     private long hookRemovedAt = 0L;
 
     public long timeMillis = 0L;
-    private long queuedCastAt = 0L;
-    private boolean queuedRodSwitch = false;
 
-    public Autofish(FabricModAutofish mod) {
-        this.mod = mod;
-        this.minecraft = MinecraftClient.getInstance();
+    public Autofish(FabricModAutofish modAutofish) {
+        this.modAutofish = modAutofish;
+        this.client = MinecraftClient.getInstance();
         setDetection();
+
+        modAutofish.getScheduler().scheduleRepeatingAction(10000, () -> {
+            if(!modAutofish.getConfig().isPersistentMode()) return;
+            if(client.world == null || client.player == null) return;
+            if(!isHoldingFishingRod()) return;
+            if(hookExists) return;
+            if(modAutofish.getScheduler().isRecastQueued()) return;
+
+            useRod();
+        });
     }
 
-    public void onTick(MinecraftClient minecraft) {
+    public void tick(MinecraftClient client) {
 
-        if (minecraft.world != null && minecraft.player != null && mod.getConfig().isAutofishEnabled()) {
+        if (client.world != null && client.player != null && modAutofish.getConfig().isAutofishEnabled()) {
 
-            timeMillis = System.currentTimeMillis();//update current working time for this tick
+           timeMillis = Util.getMeasuringTimeMs(); //update current working time for this tick
 
-            checkRodSwitch();
-
-            if (holdingFishingRod()) {
-                if (minecraft.player.fishHook != null) {
+            if (isHoldingFishingRod()) {
+                if (client.player.fishHook != null) {
                     hookExists = true;
                     //MP catch listener
-                    if (!minecraft.isInSingleplayer()) {//multiplayer only, send tick event to monitor
-                        fishMonitorMP.hookTick(this, minecraft, minecraft.player.fishHook);
+                    if (!client.isInSingleplayer()) {//multiplayer only, send tick event to monitor
+                        fishMonitorMP.hookTick(this, client, client.player.fishHook);
                     }
                 } else {
                     removeHook();
                 }
-
-                //cast back out after reeling, if it's time
-                checkRecast();
-
             } else { //not holding fishing rod
                 removeHook();
-                if (!hasQueuedRodSwitch()) //only stop fishing if we haven't queued a rod switch (rod could have broken)
-                    resetRecast();
             }
         }
     }
@@ -72,13 +74,11 @@ public class Autofish {
     /**
      * Callback from mixin when sound and motion packets are received
      * For multiplayer detection only
-     *
-     * @param packet
      */
     public void handlePacket(Packet<?> packet) {
-        if (mod.getConfig().isAutofishEnabled()) {
-            if (!minecraft.isInSingleplayer()) {
-                fishMonitorMP.handlePacket(this, packet, minecraft);
+        if (modAutofish.getConfig().isAutofishEnabled()) {
+            if (!client.isInSingleplayer()) {
+                fishMonitorMP.handlePacket(this, packet, client);
             }
         }
     }
@@ -86,22 +86,20 @@ public class Autofish {
     /**
      * Callback from mixin when chat packets are received
      * For multiplayer detection only
-     *
-     * @param packet
      */
     public void handleChat(GameMessageS2CPacket packet) {
-        if (mod.getConfig().isAutofishEnabled()) {
-            if (!minecraft.isInSingleplayer()) {
-                if (holdingFishingRod()) {
+        if (modAutofish.getConfig().isAutofishEnabled()) {
+            if (!client.isInSingleplayer()) {
+                if (isHoldingFishingRod()) {
                     //check that either the hook exists, or it was just removed
                     //this prevents false casts if we are holding a rod but not fishing
                     if (hookExists || (timeMillis - hookRemovedAt < 2000)) {
                         //make sure there is actually something there in the regex field
-                        if (org.apache.commons.lang3.StringUtils.deleteWhitespace(mod.getConfig().getClearLagRegex()).isEmpty())
+                        if (org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty())
                             return;
                         //check if it matches
-                        Matcher matcher = Pattern.compile(mod.getConfig().getClearLagRegex()).matcher(ChatUtil.stripTextFormat(packet.getMessage().getString()));
-                        if (matcher.matches()) {
+                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(ChatUtil.stripTextFormat(packet.getMessage().getString()));
+                        if (matcher.find()) {
                             queueRecast();
                         }
                     }
@@ -115,51 +113,46 @@ public class Autofish {
      * for singleplayer detection only
      */
     public void tickFishingLogic(Entity owner, int ticksCatchable) {
-        if (mod.getConfig().isAutofishEnabled() && minecraft.isInSingleplayer()) {
+        if (modAutofish.getConfig().isAutofishEnabled() && client.isInSingleplayer()) {
             //null checks for sanity
-            if (minecraft.player != null && minecraft.player.fishHook != null) {
+            if (client.player != null && client.player.fishHook != null) {
                 //hook is catchable and player is correct
-                if (ticksCatchable > 0 && owner.getUuid().compareTo(minecraft.player.getUuid()) == 0) {
-                    if (!hasQueuedRecast()) {
-                        reel();
-                    }
+                if (ticksCatchable > 0 && owner.getUuid().compareTo(client.player.getUuid()) == 0) {
+                    catchFish();
                 }
             }
         }
     }
 
-    /**
-     * Reels the rod in and sets necessary variables to recast
-     */
-    public void reel() {
-        queueRecast();
-        useRod();
-
-        if (mod.getConfig().isMultirod()) {
+    public void catchFish() {
+        if(!modAutofish.getScheduler().isRecastQueued()) { //prevents double reels
+            //queue actions
             queueRodSwitch();
-        }
-    }
+            queueRecast();
 
-    /**
-     * Checks if it's time yet to recast after reeling in. Recasts if so.
-     */
-    private void checkRecast() {
-        if (hasQueuedRecast() && (timeMillis - queuedCastAt > mod.getConfig().getRecastDelay()))//<recastDelay>ms after reeling
-        {
-            //TODO dont use 63 since the durability could change if it's a modded rod
-            boolean cast = true;
-            if (mod.getConfig().isNoBreak() && getHeldItem().getDamage() >= 63) cast = false;
-            if (hookExists) cast = false;
-            if (cast) {
-                useRod();
-            }
-            resetRecast();
-            resetRodSwitch();
+            //reel in
+            useRod();
         }
     }
 
     public void queueRecast() {
-        queuedCastAt = timeMillis;
+        modAutofish.getScheduler().scheduleAction(ActionType.RECAST, modAutofish.getConfig().getRecastDelay(), () -> {
+            //State checks to ensure we can still fish once this runs
+            if(hookExists) return;
+            if(!isHoldingFishingRod()) return;
+            if(modAutofish.getConfig().isNoBreak() && getHeldItem().getDamage() >= 63) return;
+
+            useRod();
+        });
+    }
+
+    private void queueRodSwitch(){
+        modAutofish.getScheduler().scheduleAction(ActionType.ROD_SWITCH, modAutofish.getConfig().getRecastDelay() - 500, () -> {
+            if(!modAutofish.getConfig().isMultiRod()) return;
+            if(!isHoldingFishingRod()) return;
+
+            switchToFirstRod(client.player);
+        });
     }
 
     /**
@@ -173,86 +166,58 @@ public class Autofish {
         }
     }
 
-    public boolean hasQueuedRecast() {
-        return queuedCastAt > 0;
-    }
-
-    public void resetRecast() {
-        queuedCastAt = 0;
-    }
-
-    private void checkRodSwitch() {
-        if (hasQueuedRodSwitch() && timeMillis - queuedCastAt > mod.getConfig().getRecastDelay() - 100) {
-            switchToFirstRod(minecraft.player);
-            resetRodSwitch();
-        }
-    }
-
-    private void queueRodSwitch() {
-        queuedRodSwitch = true;
-    }
-
-    private boolean hasQueuedRodSwitch() {
-        return queuedRodSwitch;
-    }
-
-    public void resetRodSwitch() {
-        queuedRodSwitch = false;
-    }
-
     public void switchToFirstRod(ClientPlayerEntity player) {
-        PlayerInventory inventory = player.inventory;
-        for (int i = 0; i < inventory.main.size(); i++) {
-            ItemStack slot = inventory.main.get(i);
-            if (slot.getItem() == Items.FISHING_ROD) {
-                if (i >= 0 && i < 9) {
-                    if (mod.getConfig().isNoBreak()) {
-                        if (slot.getDamage() < 63) {
+        if(player != null) {
+            PlayerInventory inventory = player.inventory;
+            for (int i = 0; i < inventory.main.size(); i++) {
+                ItemStack slot = inventory.main.get(i);
+                if (slot.getItem() == Items.FISHING_ROD) {
+                    if (i < 9) { //hotbar only
+                        if (modAutofish.getConfig().isNoBreak()) {
+                            if (slot.getDamage() < 63) {
+                                inventory.selectedSlot = i;
+                                return;
+                            }
+                        } else {
                             inventory.selectedSlot = i;
                             return;
                         }
-                    } else {
-                        inventory.selectedSlot = i;
-                        return;
                     }
                 }
             }
         }
-        //stop fishing if no suitable rod found
-        resetRecast();
-        resetRodSwitch();
     }
 
     public void useRod() {
-
-        Hand hand = getCorrectHand();
-        ActionResult actionResult = minecraft.interactionManager.interactItem(minecraft.player, minecraft.world, hand);
-        if (actionResult.isAccepted()) {
-            if (actionResult.shouldSwingHand()) {
-                minecraft.player.swingHand(hand);
+        if(client.player != null && client.world != null) {
+            Hand hand = getCorrectHand();
+            ActionResult actionResult = client.interactionManager.interactItem(client.player, client.world, hand);
+            if (actionResult.isAccepted()) {
+                if (actionResult.shouldSwingHand()) {
+                    client.player.swingHand(hand);
+                }
+                client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
             }
-            minecraft.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
-            return;
         }
     }
 
-    public boolean holdingFishingRod() {
+    public boolean isHoldingFishingRod() {
         return isItemFishingRod(getHeldItem().getItem());
     }
 
     private Hand getCorrectHand() {
-        if (!mod.getConfig().isMultirod()) {
-            if (isItemFishingRod(minecraft.player.getOffHandStack().getItem())) return Hand.OFF_HAND;
+        if (!modAutofish.getConfig().isMultiRod()) {
+            if (isItemFishingRod(client.player.getOffHandStack().getItem())) return Hand.OFF_HAND;
         }
         return Hand.MAIN_HAND;
     }
 
     private ItemStack getHeldItem() {
-        if (!mod.getConfig().isMultirod()) {
-            if (isItemFishingRod(minecraft.player.getOffHandStack().getItem()))
-                return minecraft.player.getOffHandStack();
+        if (!modAutofish.getConfig().isMultiRod()) {
+            if (isItemFishingRod(client.player.getOffHandStack().getItem()))
+                return client.player.getOffHandStack();
         }
-        return minecraft.player.getMainHandStack();
+        return client.player.getMainHandStack();
     }
 
     private boolean isItemFishingRod(Item item) {
@@ -260,7 +225,7 @@ public class Autofish {
     }
 
     public void setDetection() {
-        if (mod.getConfig().isUseSoundDetection()) {
+        if (modAutofish.getConfig().isUseSoundDetection()) {
             fishMonitorMP = new FishMonitorMPSound();
         } else {
             fishMonitorMP = new FishMonitorMPMotion();

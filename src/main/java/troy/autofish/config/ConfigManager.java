@@ -24,8 +24,8 @@ public class ConfigManager {
     public ConfigManager(FabricModAutofish modAutofish) {
         this.modAutofish = modAutofish;
         this.gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        this.configFile = new File(FabricLoader.getInstance().getConfigDirectory(), "autofish.config");
-        //block the thread on first run so our options are loaded for the Autofish instance
+        this.configFile = new File(FabricLoader.getInstance().getConfigDir().toFile(), "autofish.config");
+        //run synchronously on first run so our options are available for the Autofish instance
         readConfig(false);
     }
 

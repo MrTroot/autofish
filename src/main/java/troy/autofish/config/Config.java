@@ -5,8 +5,9 @@ import com.google.gson.annotations.Expose;
 public class Config {
 
     @Expose boolean isAutofishEnabled = true;
-    @Expose boolean multirod = false;
+    @Expose boolean multiRod = false;
     @Expose boolean noBreak = false;
+    @Expose boolean persistentMode = false;
     @Expose boolean useSoundDetection = false;
     @Expose long recastDelay = 1500;
     @Expose String clearLagRegex = "\\[ClearLag\\] Removed [0-9]+ Entities!";
@@ -15,13 +16,15 @@ public class Config {
         return isAutofishEnabled;
     }
 
-    public boolean isMultirod() {
-        return multirod;
+    public boolean isMultiRod() {
+        return multiRod;
     }
 
     public boolean isNoBreak() {
         return noBreak;
     }
+
+    public boolean isPersistentMode() { return persistentMode; }
 
     public boolean isUseSoundDetection() {
         return useSoundDetection;
@@ -35,17 +38,17 @@ public class Config {
         return clearLagRegex;
     }
 
-    public void setAutofishEnabled(boolean autofishEnabled) {
-        isAutofishEnabled = autofishEnabled;
-    }
+    public void setAutofishEnabled(boolean autofishEnabled) { isAutofishEnabled = autofishEnabled; }
 
-    public void setMultirod(boolean multirod) {
-        this.multirod = multirod;
+    public void setMultiRod(boolean multiRod) {
+        this.multiRod = multiRod;
     }
 
     public void setNoBreak(boolean noBreak) {
         this.noBreak = noBreak;
     }
+
+    public void setPersistentMode(boolean persistentMode) { this.persistentMode = persistentMode; }
 
     public void setUseSoundDetection(boolean useSoundDetection) {
         this.useSoundDetection = useSoundDetection;
@@ -64,8 +67,8 @@ public class Config {
      */
     public boolean enforceConstraints() {
         boolean changed = false;
-        if (recastDelay < 300) {
-            recastDelay = 300;
+        if (recastDelay < 900) {
+            recastDelay = 900;
             changed = true;
         }
         if (clearLagRegex == null) {

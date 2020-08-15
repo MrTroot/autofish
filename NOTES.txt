@@ -1,3 +1,0 @@
-to update loom mappings
-./gradlew cleanLoomMappings
-./gradlew genSources idea

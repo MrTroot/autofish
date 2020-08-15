@@ -38,7 +38,7 @@ public class FishMonitorMPMotion implements FishMonitorMP {
     public void handlePacket(Autofish autofish, Packet<?> packet, MinecraftClient minecraft) {
         if (packet instanceof EntityVelocityUpdateS2CPacket) {
             EntityVelocityUpdateS2CPacket velocityPacket = (EntityVelocityUpdateS2CPacket) packet;
-            if (minecraft.player.fishHook != null && minecraft.player.fishHook.getEntityId() == velocityPacket.getId()) {
+            if (minecraft.player != null && minecraft.player.fishHook != null && minecraft.player.fishHook.getEntityId() == velocityPacket.getId()) {
 
                 //hook starts to rise after sinking in water
                 if (hasHitWater && !catchable && velocityPacket.getVelocityY() > 0) {
@@ -48,10 +48,8 @@ public class FishMonitorMPMotion implements FishMonitorMP {
 
                 if (hasHitWater && catchable && (autofish.timeMillis - catchableAt > 500)) {
                     if (velocityPacket.getVelocityX() == 0 && velocityPacket.getVelocityZ() == 0 && velocityPacket.getVelocityY() < PACKET_MOTION_Y_THRESHOLD) {
-                        if (!autofish.hasQueuedRecast()) {
-                            autofish.reel();
-                            hasHitWater = false;
-                        }
+                        autofish.catchFish();
+                        hasHitWater = false;
                     }
                 }
             }

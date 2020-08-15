@@ -37,7 +37,6 @@ public class FishMonitorMPSound implements FishMonitorMP {
                 z = soundPacket.getZ();
             } else if (packet instanceof PlaySoundIdS2CPacket) {
                 PlaySoundIdS2CPacket soundPacket = (PlaySoundIdS2CPacket) packet;
-                //func_197698 returns soundName
                 soundName = soundPacket.getSoundId().toString();
                 x = soundPacket.getX();
                 y = soundPacket.getY();
@@ -47,11 +46,12 @@ public class FishMonitorMPSound implements FishMonitorMP {
             }
 
             if (soundName.equalsIgnoreCase("minecraft:entity.fishing_bobber.splash") || soundName.equalsIgnoreCase("entity.fishing_bobber.splash")) {
-
-                FishingBobberEntity hook = minecraft.player.fishHook;
-                if (!autofish.hasQueuedRecast() && hook != null) {
-                    if (hook.squaredDistanceTo(x, y, z) < HOOKSOUND_DISTANCESQ_THRESHOLD) {
-                        autofish.reel();
+                if(minecraft.player != null) {
+                    FishingBobberEntity hook = minecraft.player.fishHook;
+                    if (hook != null) {
+                        if (hook.squaredDistanceTo(x, y, z) < HOOKSOUND_DISTANCESQ_THRESHOLD) {
+                            autofish.catchFish();
+                        }
                     }
                 }
             }
