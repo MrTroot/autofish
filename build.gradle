@@ -30,10 +30,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	//Cloth Config API
-	modApi("me.shedaniel.cloth:config-2:4.7.0-unstable") {
+	modApi("me.shedaniel.cloth:config-2:${project.cloth_config_version}") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
-	include "me.shedaniel.cloth:config-2:4.7.0-unstable"
+	include "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
 }
 
 processResources {
