@@ -16,8 +16,8 @@ import java.util.function.Function;
 public class AutofishScreenBuilder {
 
     private static final Function<Boolean, Text> yesNoTextSupplier = bool -> {
-        if (bool) return Text.of("§aOn");
-        else return Text.of("§eOff");
+        if (bool) return Text.of("\u00A7aOn");
+        else return Text.of("\u00A7eOff");
     };
 
     public static Screen buildScreen(FabricModAutofish modAutofish, MinecraftClient client) {
@@ -98,16 +98,16 @@ public class AutofishScreenBuilder {
         AbstractConfigListEntry toggleSoundDetection = entryBuilder.startBooleanToggle(Text.of("Use Sound Detection"), config.isUseSoundDetection())
                 .setDefaultValue(defaults.isUseSoundDetection())
                 .setTooltip(
-                        Text.of("§6Newer, more accurate detection based"),
-                        Text.of("§6on bobber sounds rather than the"),
-                        Text.of("§6standard hook movement detection."),
+                        Text.of("\u00A76Newer, more accurate detection based"),
+                        Text.of("\u00A76on bobber sounds rather than the"),
+                        Text.of("\u00A76standard hook movement detection."),
                         Text.of("-You must be somewhat close to the"),
                         Text.of("hook for this to work."),
                         Text.of("-If other players' hooks are near"),
                         Text.of("yours, it can falsely trigger a catch!"),
-                        Text.of("§cNote: this option only affects"),
-                        Text.of("§cmultiplayer. Singleplayer uses its own"),
-                        Text.of("§cdetection.")
+                        Text.of("\u00A7cNote: this option only affects"),
+                        Text.of("\u00A7cmultiplayer. Singleplayer uses its own"),
+                        Text.of("\u00A7cdetection.")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setUseSoundDetection(newValue);
@@ -135,7 +135,7 @@ public class AutofishScreenBuilder {
                 .setTooltip(
                         Text.of("Recast the fishing rod when"),
                         Text.of("this pattern is matched in chat."),
-                        Text.of("§6This pattern is a §aRegular Expression§6.")
+                        Text.of("\u00A76This pattern is a \u00A7aRegular Expression\u00A76.")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setClearLagRegex(newValue);

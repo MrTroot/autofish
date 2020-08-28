@@ -38,9 +38,9 @@ public class Autofish {
         this.client = MinecraftClient.getInstance();
         setDetection();
 
+        //Initiate the repeating action for persistent mode casting
         modAutofish.getScheduler().scheduleRepeatingAction(10000, () -> {
             if(!modAutofish.getConfig().isPersistentMode()) return;
-            if(client.world == null || client.player == null) return;
             if(!isHoldingFishingRod()) return;
             if(hookExists) return;
             if(modAutofish.getScheduler().isRecastQueued()) return;
