@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "troy.autofish.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "autofish.refmap.json",
+  "mixins": [],
+  "client": [
+    "MixinFishHookEntity",
+    "MixinClientPlayNetworkHandler"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

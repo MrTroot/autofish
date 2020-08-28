@@ -1,0 +1,19 @@
+modLoader="javafml"
+  loaderVersion="[33,)"
+  license="GNU General Public License v3.0"
+
+  [[mods]]
+  modId="autofish"
+  version="${file.jarVersion}"
+  displayName="Autofish"
+  displayURL="https://minecraft.curseforge.com/projects/autofish"
+  logoFile="icon.png"
+  authors="troyboy50"
+  description="Automatically reels in and recasts your fishing rod when you catch a fish."
+
+  [[dependencies.autofish]]
+  modId="cloth-config"
+  mandatory=true
+  versionRange="[4.0,)"
+  ordering="NONE"
+  side="CLIENT"
