@@ -164,6 +164,6 @@ public class AutofishScreenBuilder {
     }
 
     private static ITextComponent text(String str) {
-        return ITextComponent.func_241827_a_(str);
+        return ITextComponent.func_244388_a(str);
     }
 }
