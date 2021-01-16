@@ -116,6 +116,20 @@ public class AutofishScreenBuilder {
                 .setYesNoTextSupplier(yesNoTextSupplier)
                 .build();
 
+        //Enable Force MP Detection
+        AbstractConfigListEntry toggleForceMPDetection = entryBuilder.startBooleanToggle(Text.of("Force Multiplayer Detection (mod compatibility)"), config.isForceMPDetection())
+                .setDefaultValue(defaults.isPersistentMode())
+                .setTooltip(
+                        Text.of("Forces the use of multiplayer"),
+                        Text.of("detection while in singleplayer."),
+                        Text.of("This provides compatibility with third party mods.")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setForceMPDetection(newValue);
+                })
+                .setYesNoTextSupplier(yesNoTextSupplier)
+                .build();
+
         //Recast Delay
         AbstractConfigListEntry recastDelaySlider = entryBuilder.startLongSlider(Text.of("Recast Delay (ms)"), config.getRecastDelay(), 1000, 5000)
                 .setDefaultValue(defaults.getRecastDelay())
@@ -152,6 +166,7 @@ public class AutofishScreenBuilder {
 
         SubCategoryBuilder subCatBuilderAdvanced = entryBuilder.startSubCategory(Text.of("Advanced Options"));
         subCatBuilderAdvanced.add(toggleSoundDetection);
+        subCatBuilderAdvanced.add(toggleForceMPDetection);
         subCatBuilderAdvanced.add(recastDelaySlider);
         subCatBuilderAdvanced.add(clearLagRegexField);
         subCatBuilderAdvanced.setExpanded(true);

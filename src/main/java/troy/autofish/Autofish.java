@@ -59,7 +59,7 @@ public class Autofish {
                 if (client.player.fishHook != null) {
                     hookExists = true;
                     //MP catch listener
-                    if (!client.isInSingleplayer()) {//multiplayer only, send tick event to monitor
+                    if (shouldUseMPDetection()) {//multiplayer only, send tick event to monitor
                         fishMonitorMP.hookTick(this, client, client.player.fishHook);
                     }
                 } else {
@@ -72,12 +72,28 @@ public class Autofish {
     }
 
     /**
+     * Callback from mixin for the catchingFish method of the EntityFishHook
+     * for singleplayer detection only
+     */
+    public void tickFishingLogic(Entity owner, int ticksCatchable) {
+        if (modAutofish.getConfig().isAutofishEnabled() && !shouldUseMPDetection()) {
+            //null checks for sanity
+            if (client.player != null && client.player.fishHook != null) {
+                //hook is catchable and player is correct
+                if (ticksCatchable > 0 && owner.getUuid().compareTo(client.player.getUuid()) == 0) {
+                    catchFish();
+                }
+            }
+        }
+    }
+
+    /**
      * Callback from mixin when sound and motion packets are received
      * For multiplayer detection only
      */
     public void handlePacket(Packet<?> packet) {
         if (modAutofish.getConfig().isAutofishEnabled()) {
-            if (!client.isInSingleplayer()) {
+            if (shouldUseMPDetection()) {
                 fishMonitorMP.handlePacket(this, packet, client);
             }
         }
@@ -103,22 +119,6 @@ public class Autofish {
                             queueRecast();
                         }
                     }
-                }
-            }
-        }
-    }
-
-    /**
-     * Callback from mixin for the catchingFish method of the EntityFishHook
-     * for singleplayer detection only
-     */
-    public void tickFishingLogic(Entity owner, int ticksCatchable) {
-        if (modAutofish.getConfig().isAutofishEnabled() && client.isInSingleplayer()) {
-            //null checks for sanity
-            if (client.player != null && client.player.fishHook != null) {
-                //hook is catchable and player is correct
-                if (ticksCatchable > 0 && owner.getUuid().compareTo(client.player.getUuid()) == 0) {
-                    catchFish();
                 }
             }
         }
@@ -230,5 +230,10 @@ public class Autofish {
         } else {
             fishMonitorMP = new FishMonitorMPMotion();
         }
+    }
+
+    private boolean shouldUseMPDetection(){
+        if(modAutofish.getConfig().isForceMPDetection()) return true;
+        return !client.isInSingleplayer();
     }
 }
