@@ -9,6 +9,7 @@ public class Config {
     @Expose boolean noBreak = false;
     @Expose boolean persistentMode = false;
     @Expose boolean useSoundDetection = false;
+    @Expose boolean forceMPDetection = false;
     @Expose long recastDelay = 1500;
     @Expose String clearLagRegex = "\\[ClearLag\\] Removed [0-9]+ Entities!";
 
@@ -24,13 +25,13 @@ public class Config {
         return noBreak;
     }
 
-    public boolean isPersistentMode() {
-        return persistentMode;
-    }
+    public boolean isPersistentMode() { return persistentMode; }
 
     public boolean isUseSoundDetection() {
         return useSoundDetection;
     }
+
+    public boolean isForceMPDetection() { return forceMPDetection; }
 
     public long getRecastDelay() {
         return recastDelay;
@@ -40,9 +41,7 @@ public class Config {
         return clearLagRegex;
     }
 
-    public void setAutofishEnabled(boolean autofishEnabled) {
-        isAutofishEnabled = autofishEnabled;
-    }
+    public void setAutofishEnabled(boolean autofishEnabled) { isAutofishEnabled = autofishEnabled; }
 
     public void setMultiRod(boolean multiRod) {
         this.multiRod = multiRod;
@@ -52,13 +51,13 @@ public class Config {
         this.noBreak = noBreak;
     }
 
-    public void setPersistentMode(boolean persistentMode) {
-        this.persistentMode = persistentMode;
-    }
+    public void setPersistentMode(boolean persistentMode) { this.persistentMode = persistentMode; }
 
     public void setUseSoundDetection(boolean useSoundDetection) {
         this.useSoundDetection = useSoundDetection;
     }
+
+    public void setForceMPDetection(boolean forceMPDetection) { this.forceMPDetection = forceMPDetection; }
 
     public void setRecastDelay(long recastDelay) {
         this.recastDelay = recastDelay;

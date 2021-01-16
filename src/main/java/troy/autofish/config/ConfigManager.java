@@ -2,7 +2,6 @@ package troy.autofish.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.io.FileUtils;
 import troy.autofish.ForgeModAutofish;
@@ -25,7 +24,7 @@ public class ConfigManager {
     public ConfigManager(ForgeModAutofish modAutofish) {
         this.modAutofish = modAutofish;
         this.gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-        this.configFile = new File(FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).toFile(), "autofish.config");
+        this.configFile = new File(FMLPaths.CONFIGDIR.get().toFile(), "autofish.config");
         //run synchronously on first run so our options are available for the Autofish instance
         readConfig(false);
     }
