@@ -168,7 +168,7 @@ public class Autofish {
 
     public void switchToFirstRod(ClientPlayerEntity player) {
         if(player != null) {
-            PlayerInventory inventory = player.inventory;
+            PlayerInventory inventory = player.getInventory();
             for (int i = 0; i < inventory.main.size(); i++) {
                 ItemStack slot = inventory.main.get(i);
                 if (slot.getItem() == Items.FISHING_ROD) {
