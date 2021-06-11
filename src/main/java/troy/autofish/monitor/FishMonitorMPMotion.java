@@ -17,7 +17,7 @@ public class FishMonitorMPMotion implements FishMonitorMP {
     // The threshold of detecting a bobber moving downwards, to detect as a fish.
     public static final int PACKET_MOTION_Y_THRESHOLD = -350;
 
-    // Start catching fish after a 1 second threshold.
+    // Start catching fish after a 1 second threshold of hitting water.
     public static final int START_CATCHING_AFTER_THRESHOLD = 1000;
 
     // True if the bobber is in the water.
