@@ -149,7 +149,6 @@ public class Autofish {
     private void queueRodSwitch(){
         modAutofish.getScheduler().scheduleAction(ActionType.ROD_SWITCH, modAutofish.getConfig().getRecastDelay() - 500, () -> {
             if(!modAutofish.getConfig().isMultiRod()) return;
-            if(!isHoldingFishingRod()) return;
 
             switchToFirstRod(client.player);
         });
