@@ -8,6 +8,7 @@ import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import troy.autofish.FabricModAutofish;
 import troy.autofish.config.Config;
 
@@ -16,8 +17,8 @@ import java.util.function.Function;
 public class AutofishScreenBuilder {
 
     private static final Function<Boolean, Text> yesNoTextSupplier = bool -> {
-        if (bool) return Text.of("\u00A7aOn");
-        else return Text.of("\u00A7eOff");
+        if (bool) return new TranslatableText("options.autofish.toggle.on");
+        else return new TranslatableText("options.autofish.toggle.off");
     };
 
     public static Screen buildScreen(FabricModAutofish modAutofish, MinecraftClient client) {
@@ -27,7 +28,7 @@ public class AutofishScreenBuilder {
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(client.currentScreen)
-                .setTitle(Text.of("Autofish Settings"))
+                .setTitle(new TranslatableText("options.autofish.title"))
                 .transparentBackground()
                 .setDoesConfirmSave(true)
                 .setSavingRunnable(() -> {
@@ -36,13 +37,13 @@ public class AutofishScreenBuilder {
                 });
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        ConfigCategory configCat = builder.getOrCreateCategory(Text.of("autofishconfig"));
+        ConfigCategory configCat = builder.getOrCreateCategory(new TranslatableText("options.autofish.config"));
 
 
         //Enable Autofish
-        AbstractConfigListEntry toggleAutofish = entryBuilder.startBooleanToggle(Text.of("Enable Autofish"), config.isAutofishEnabled())
+        AbstractConfigListEntry toggleAutofish = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.enable.title"), config.isAutofishEnabled())
                 .setDefaultValue(defaults.isAutofishEnabled())
-                .setTooltip(Text.of("Toggles the entire mod on or off."))
+                .setTooltip(new TranslatableText("options.autofish.enable.tooltip"))
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setAutofishEnabled(newValue);
                 })
@@ -50,12 +51,12 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Enable MultiRod
-        AbstractConfigListEntry toggleMultiRod = entryBuilder.startBooleanToggle(Text.of("Enable MultiRod"), config.isMultiRod())
+        AbstractConfigListEntry toggleMultiRod = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.multirod.title"), config.isMultiRod())
                 .setDefaultValue(defaults.isMultiRod())
                 .setTooltip(
-                        Text.of("Cycles through all of the"),
-                        Text.of("available rods in the hotbar,"),
-                        Text.of("moving to the next as they break.")
+                        new TranslatableText("options.autofish.multirod.tooltip_0"),
+                        new TranslatableText("options.autofish.multirod.tooltip_1"),
+                        new TranslatableText("options.autofish.multirod.tooltip_2")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setMultiRod(newValue);
@@ -64,11 +65,11 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Enable Break Protection
-        AbstractConfigListEntry toggleBreakProtection = entryBuilder.startBooleanToggle(Text.of("Enable Break Protection"), config.isNoBreak())
+        AbstractConfigListEntry toggleBreakProtection = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.break_protection.title"), config.isNoBreak())
                 .setDefaultValue(defaults.isNoBreak())
                 .setTooltip(
-                        Text.of("Stop using rods with low"),
-                        Text.of("durability before they break.")
+                        new TranslatableText("options.autofish.break_protection.tooltip_0"),
+                        new TranslatableText("options.autofish.break_protection.tooltip_1")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setNoBreak(newValue);
@@ -77,15 +78,15 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Enable Persistent Mode
-        AbstractConfigListEntry togglePersistentMode = entryBuilder.startBooleanToggle(Text.of("Enable Persistent Mode"), config.isPersistentMode())
+        AbstractConfigListEntry togglePersistentMode = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.persistent.title"), config.isPersistentMode())
                 .setDefaultValue(defaults.isPersistentMode())
                 .setTooltip(
-                        Text.of("Enable this to always keep the fish hook"),
-                        Text.of("cast whenever a rod is in hand."),
-                        Text.of("Checks every 10 seconds and recasts"),
-                        Text.of("if needed."),
-                        Text.of("This is useful for lag issues or when"),
-                        Text.of("fishing for long periods of time.")
+                        new TranslatableText("options.autofish.persistent.tooltip_0"),
+                        new TranslatableText("options.autofish.persistent.tooltip_1"),
+                        new TranslatableText("options.autofish.persistent.tooltip_2"),
+                        new TranslatableText("options.autofish.persistent.tooltip_3"),
+                        new TranslatableText("options.autofish.persistent.tooltip_4"),
+                        new TranslatableText("options.autofish.persistent.tooltip_5")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setPersistentMode(newValue);
@@ -95,19 +96,19 @@ public class AutofishScreenBuilder {
 
 
         //Enable Sound Detection
-        AbstractConfigListEntry toggleSoundDetection = entryBuilder.startBooleanToggle(Text.of("Use Sound Detection"), config.isUseSoundDetection())
+        AbstractConfigListEntry toggleSoundDetection = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.sound.title"), config.isUseSoundDetection())
                 .setDefaultValue(defaults.isUseSoundDetection())
                 .setTooltip(
-                        Text.of("\u00A76Newer, more accurate detection based"),
-                        Text.of("\u00A76on bobber sounds rather than the"),
-                        Text.of("\u00A76standard hook movement detection."),
-                        Text.of("-You must be somewhat close to the"),
-                        Text.of("hook for this to work."),
-                        Text.of("-If other players' hooks are near"),
-                        Text.of("yours, it can falsely trigger a catch!"),
-                        Text.of("\u00A7cNote: this option only affects"),
-                        Text.of("\u00A7cmultiplayer. Singleplayer uses its own"),
-                        Text.of("\u00A7cdetection.")
+                        new TranslatableText("options.autofish.sound.tooltip_0"),
+                        new TranslatableText("options.autofish.sound.tooltip_1"),
+                        new TranslatableText("options.autofish.sound.tooltip_2"),
+                        new TranslatableText("options.autofish.sound.tooltip_3"),
+                        new TranslatableText("options.autofish.sound.tooltip_4"),
+                        new TranslatableText("options.autofish.sound.tooltip_5"),
+                        new TranslatableText("options.autofish.sound.tooltip_6"),
+                        new TranslatableText("options.autofish.sound.tooltip_7"),
+                        new TranslatableText("options.autofish.sound.tooltip_8"),
+                        new TranslatableText("options.autofish.sound.tooltip_9")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setUseSoundDetection(newValue);
@@ -117,12 +118,12 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Enable Force MP Detection
-        AbstractConfigListEntry toggleForceMPDetection = entryBuilder.startBooleanToggle(Text.of("Force Multiplayer Detection (mod compatibility)"), config.isForceMPDetection())
+        AbstractConfigListEntry toggleForceMPDetection = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.multiplayer_compat.title"), config.isForceMPDetection())
                 .setDefaultValue(defaults.isPersistentMode())
                 .setTooltip(
-                        Text.of("Forces the use of multiplayer"),
-                        Text.of("detection while in singleplayer."),
-                        Text.of("This provides compatibility with third party mods.")
+                        new TranslatableText("options.autofish.multiplayer_compat.tooltip_0"),
+                        new TranslatableText("options.autofish.multiplayer_compat.tooltip_1"),
+                        new TranslatableText("options.autofish.multiplayer_compat.tooltip_2")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setForceMPDetection(newValue);
@@ -131,25 +132,25 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Recast Delay
-        AbstractConfigListEntry recastDelaySlider = entryBuilder.startLongSlider(Text.of("Recast Delay (ms)"), config.getRecastDelay(), 1000, 5000)
+        AbstractConfigListEntry recastDelaySlider = entryBuilder.startLongSlider(new TranslatableText("options.autofish.recast_delay.title"), config.getRecastDelay(), 1000, 5000)
                 .setDefaultValue(defaults.getRecastDelay())
                 .setTooltip(
-                        Text.of("Adjusts the delay between catching"),
-                        Text.of("a fish and recasting the rod.")
+                        new TranslatableText("options.autofish.recast_delay.tooltip_0"),
+                        new TranslatableText("options.autofish.recast_delay.tooltip_1")
                 )
-                .setTextGetter(value -> Text.of(value + " ms"))
+                .setTextGetter(value -> new TranslatableText("options.autofish.recast_delay.value", value))
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setRecastDelay(newValue);
                 })
                 .build();
 
         //ClearLag Regex
-        AbstractConfigListEntry clearLagRegexField = entryBuilder.startTextField(Text.of("ClearLag Chat Pattern"), config.getClearLagRegex())
+        AbstractConfigListEntry clearLagRegexField = entryBuilder.startTextField(new TranslatableText("options.autofish.clear_regex.title"), config.getClearLagRegex())
                 .setDefaultValue(defaults.getClearLagRegex())
                 .setTooltip(
-                        Text.of("Recast the fishing rod when"),
-                        Text.of("this pattern is matched in chat."),
-                        Text.of("\u00A76This pattern is a \u00A7aRegular Expression\u00A76.")
+                        new TranslatableText("options.autofish.clear_regex.tooltip_0"),
+                        new TranslatableText("options.autofish.clear_regex.tooltip_1"),
+                        new TranslatableText("options.autofish.clear_regex.tooltip_2")
                 )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setClearLagRegex(newValue);
@@ -157,14 +158,14 @@ public class AutofishScreenBuilder {
                 .build();
 
 
-        SubCategoryBuilder subCatBuilderBasic = entryBuilder.startSubCategory(Text.of("Basic Options"));
+        SubCategoryBuilder subCatBuilderBasic = entryBuilder.startSubCategory(new TranslatableText("options.autofish.basic.title"));
         subCatBuilderBasic.add(toggleAutofish);
         subCatBuilderBasic.add(toggleMultiRod);
         subCatBuilderBasic.add(toggleBreakProtection);
         subCatBuilderBasic.add((togglePersistentMode));
         subCatBuilderBasic.setExpanded(true);
 
-        SubCategoryBuilder subCatBuilderAdvanced = entryBuilder.startSubCategory(Text.of("Advanced Options"));
+        SubCategoryBuilder subCatBuilderAdvanced = entryBuilder.startSubCategory(new TranslatableText("options.autofish.advanced.title"));
         subCatBuilderAdvanced.add(toggleSoundDetection);
         subCatBuilderAdvanced.add(toggleForceMPDetection);
         subCatBuilderAdvanced.add(recastDelaySlider);
