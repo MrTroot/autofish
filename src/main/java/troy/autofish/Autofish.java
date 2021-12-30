@@ -11,7 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ChatUtil;
+import net.minecraft.util.StringHelper;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import troy.autofish.monitor.FishMonitorMP;
@@ -114,7 +114,7 @@ public class Autofish {
                         if (org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty())
                             return;
                         //check if it matches
-                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(ChatUtil.stripTextFormat(packet.getMessage().getString()));
+                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
                         if (matcher.find()) {
                             queueRecast();
                         }

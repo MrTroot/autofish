@@ -20,10 +20,7 @@
     ]
   },
   "mixins": [
-    {
-      "config": "autofish.mixins.json",
-      "environment": "client"
-    }
+    "autofish.mixins.json"
   ],
 
   "depends": {
