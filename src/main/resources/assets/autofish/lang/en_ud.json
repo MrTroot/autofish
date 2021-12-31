@@ -1,0 +1,57 @@
+{
+  "key.autofish.open_gui": "I∩פ ɥsᴉɟoʇn∀ uǝdO",
+  "options.autofish.title": "sƃuᴉʇʇǝS ɥsᴉɟoʇn∀",
+
+  "options.autofish.toggle.on": "\u00A7auO",
+  "options.autofish.toggle.off": "\u00A7eɟɟO",
+
+  "options.autofish.enable.title": "ɥsᴉɟoʇn∀ ǝlqɐuƎ",
+  "options.autofish.enable.tooltip": "˙ɟɟo ɹo uo poɯ ǝɹᴉʇuǝ ǝɥʇ sǝlƃƃo⟘",
+
+  "options.autofish.multirod.title": "poᴚᴉʇlnW ǝlqɐuƎ",
+  "options.autofish.multirod.tooltip_0": "˙ʞɐǝɹq ʎǝɥʇ sɐ ʇxǝu ǝɥʇ oʇ ƃuᴉʌoɯ",
+  "options.autofish.multirod.tooltip_1": "'ɹɐqʇoɥ ǝɥʇ uᴉ spoɹ ǝlqɐlᴉɐʌɐ",
+  "options.autofish.multirod.tooltip_2": "ǝɥʇ ɟo llɐ ɥƃnoɹɥʇ sǝlɔʎƆ",
+
+  "options.autofish.break_protection.title": "uoᴉʇɔǝʇoɹԀ ʞɐǝɹq ǝlqɐuƎ",
+  "options.autofish.break_protection.tooltip_0": "˙ʞɐǝɹq ʎǝɥʇ ǝɹoɟǝq ʎʇᴉlᴉqɐɹnp",
+  "options.autofish.break_protection.tooltip_1": "ʍol ɥʇᴉʍ spoɹ ƃuᴉsn doʇS",
+
+  "options.autofish.persistent.title": "ǝpoW ʇuǝʇsᴉsɹǝԀ ǝlqɐuƎ",
+  "options.autofish.persistent.tooltip_0": "˙ǝɯᴉʇ ɟo spoᴉɹǝd ƃuol ɹoɟ ƃuᴉɥsᴉɟ",
+  "options.autofish.persistent.tooltip_1": "uǝɥʍ ɹo sǝnssᴉ ƃɐl ɹoɟ lnɟǝsn sᴉ sᴉɥ⟘",
+  "options.autofish.persistent.tooltip_2": "˙pǝpǝǝu ɟᴉ",
+  "options.autofish.persistent.tooltip_3": "sʇsɐɔǝɹ puɐ spuoɔǝs 0Ɩ ʎɹǝʌǝ sʞɔǝɥƆ",
+  "options.autofish.persistent.tooltip_4": "˙puɐɥ uᴉ sᴉ poɹ ɐ ɹǝʌǝuǝɥʍ ʇsɐɔ",
+  "options.autofish.persistent.tooltip_5": "ʞooɥ ɥsᴉɟ ǝɥʇ dǝǝʞ sʎɐʍlɐ oʇ sᴉɥʇ ǝlqɐuƎ",
+
+  "options.autofish.sound.title": "uoᴉʇɔǝʇǝp punoS ǝs∩",
+  "options.autofish.sound.tooltip_0": "\u00A7c˙uoᴉʇɔǝʇǝp",
+  "options.autofish.sound.tooltip_1": "\u00A7cuʍo sʇᴉ sǝsn ɹǝʎɐldǝlƃuᴉS ˙ɹǝʎɐldᴉʇlnɯ",
+  "options.autofish.sound.tooltip_2": "\u00A7csʇɔǝɟɟɐ ʎluo uoᴉʇdo sᴉɥʇ :ǝʇoN",
+  "options.autofish.sound.tooltip_3": "¡ɥɔʇɐɔ ɐ ɹǝƃƃᴉɹʇ ʎlǝslɐɟ uɐɔ ʇᴉ 'sɹnoʎ",
+  "options.autofish.sound.tooltip_4": "ɹɐǝu ǝɹɐ sʞooɥ ,sɹǝʎɐld ɹǝɥʇo ɟI -",
+  "options.autofish.sound.tooltip_5": "˙ʞɹoʍ oʇ sᴉɥʇ ɹoɟ ʞooɥ",
+  "options.autofish.sound.tooltip_6": "ǝɥʇ oʇ ǝsolɔ ʇɐɥʍǝɯos ǝq ʇsnɯ no⅄ -",
+  "options.autofish.sound.tooltip_7": "\u00A76˙uoᴉʇɔǝʇǝp ʇuǝɯǝʌoɯ ʞooɥ pɹɐpuɐʇs",
+  "options.autofish.sound.tooltip_8": "\u00A76ǝɥʇ uɐɥʇ ɹǝɥʇɐɹ spunos ɹǝqqoq uo",
+  "options.autofish.sound.tooltip_9": "\u00A76pǝsɐq uoᴉʇɔǝʇǝp ǝʇɐɹnɔɔɐ ǝɹoɯ 'ɹǝʍǝN",
+
+  "options.autofish.multiplayer_compat.title": "(ʎʇᴉlᴉqᴉʇɐdɯoƆ poW) uoᴉʇɔǝʇǝp ɹǝʎɐldᴉʇlnW ǝɔɹoℲ",
+  "options.autofish.multiplayer_compat.tooltip_0": "ɹǝʎɐldᴉʇlnɯ ɟo ǝsn ǝɥʇ sǝɔɹoℲ",
+  "options.autofish.multiplayer_compat.tooltip_1": "˙ɹǝʎɐldǝlƃuᴉs uᴉ ǝlᴉɥʍ uoᴉʇɔǝʇǝp",
+  "options.autofish.multiplayer_compat.tooltip_2": "˙spoɯ ʎʇɹɐd pɹᴉɥʇ ɥʇᴉʍ ʎʇᴉlᴉqᴉʇɐdɯoɔ sǝpᴉʌoɹd sᴉɥ⟘",
+
+  "options.autofish.recast_delay.title": "(sɯ) ʎɐlǝp ʇsɐɔǝᴚ",
+  "options.autofish.recast_delay.value": "sɯ %d",
+  "options.autofish.recast_delay.tooltip_0": "˙poɹ ǝɥʇ ƃuᴉʇsɐɔǝɹ puɐ ɥsᴉɟ ɐ",
+  "options.autofish.recast_delay.tooltip_1": "ƃuᴉɥɔʇɐɔ uǝǝʍʇǝq ʎɐlǝp ǝɥʇ sʇsnɾp∀",
+
+  "options.autofish.clear_regex.title": "ǝpoW ʇuǝʇsᴉsɹǝԀ ǝlqɐuƎ",
+  "options.autofish.clear_regex.tooltip_0": "\u00A76˙\u00A7auoᴉssǝɹdxƎ ɹɐlnƃǝᴚ\u00A76 ɐ sᴉ uɹǝʇʇɐd sᴉɥ⟘",
+  "options.autofish.clear_regex.tooltip_1": "˙ʇɐɥɔ uᴉ pǝɥɔʇɐɯ sᴉ uɹǝʇʇɐd sᴉɥʇ",
+  "options.autofish.clear_regex.tooltip_2": "uǝɥʍ poɹ ƃuᴉɥsᴉɟ ǝɥʇ ʇsɐɔǝᴚ",
+  
+  "options.autofish.basic.title": "suoᴉʇdO ɔᴉsɐq",
+  "options.autofish.advanced.title": "suoᴉʇdO pǝɔuɐʌp∀"
+}
