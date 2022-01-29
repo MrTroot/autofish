@@ -1,0 +1,57 @@
+{
+  "key.autofish.open_gui": "打开Autofish界面",
+  "options.autofish.title": "Autofish设置",
+
+  "options.autofish.toggle.on": "\u00A7a开",
+  "options.autofish.toggle.off": "\u00A7e关",
+
+  "options.autofish.enable.title": "启用自动钓鱼",
+  "options.autofish.enable.tooltip": "打开或关闭MOD功能",
+
+  "options.autofish.multirod.title": "启用多个钓鱼竿",
+  "options.autofish.multirod.tooltip_0": "顺序使用多个钓鱼竿",
+  "options.autofish.multirod.tooltip_1": "在当前钓鱼竿损坏时",
+  "options.autofish.multirod.tooltip_2": "自动切换到下一个钓鱼竿",
+
+  "options.autofish.break_protection.title": "启用断裂保护",
+  "options.autofish.break_protection.tooltip_0": "在钓鱼竿断裂之前",
+  "options.autofish.break_protection.tooltip_1": "停止使用耐久低的钓鱼竿",
+
+  "options.autofish.persistent.title": "启用持续模式",
+  "options.autofish.persistent.tooltip_0": "使其始终保持鱼钩为投掷状态",
+  "options.autofish.persistent.tooltip_1": "每当钓鱼竿在手上时",
+  "options.autofish.persistent.tooltip_2": "将每10秒检查一次",
+  "options.autofish.persistent.tooltip_3": "并在需要时重新投掷",
+  "options.autofish.persistent.tooltip_4": "这对于滞后问题或",
+  "options.autofish.persistent.tooltip_5": "长时间钓鱼非常有用",
+  
+  "options.autofish.sound.title": "使用声音检测",
+  "options.autofish.sound.tooltip_0": "\u00A76基于浮标声音的更新",
+  "options.autofish.sound.tooltip_1": "\u00A76他将更准确的检测收杆时机",
+  "options.autofish.sound.tooltip_2": "\u00A76而不是简单的浮标移动检测",
+  "options.autofish.sound.tooltip_3": "- 你必须离钩子很近",
+  "options.autofish.sound.tooltip_4": "  才能让它正常工作.",
+  "options.autofish.sound.tooltip_5": "- 如果其他玩家的钩子靠近你的钩子",
+  "options.autofish.sound.tooltip_6": "  它可能会错误地触发一次收杆!",
+  "options.autofish.sound.tooltip_7": "\u00A7c注意: 这个选项只影响多人游戏",
+  "options.autofish.sound.tooltip_8": "\u00A7c单人游戏使用已有的检测事件",
+  "options.autofish.sound.tooltip_9": "\u00A7c可开启“多人游戏检测”使用",
+
+  "options.autofish.multiplayer_compat.title": "多人游戏检测",
+  "options.autofish.multiplayer_compat.tooltip_0": "强制玩家在单人游戏中",
+  "options.autofish.multiplayer_compat.tooltip_1": "使用多人游戏的检测模式.",
+  "options.autofish.multiplayer_compat.tooltip_2": "保证第三方MOD的兼容性",
+
+  "options.autofish.recast_delay.title": "重新投掷延迟",
+  "options.autofish.recast_delay.value": "%d 毫秒(ms)",
+  "options.autofish.recast_delay.tooltip_0": "调整收杆和重新投掷钓鱼竿之间的延迟",
+  "options.autofish.recast_delay.tooltip_1": "以毫秒 (ms) 为单位.",
+
+  "options.autofish.clear_regex.title": "启用持续模式",
+  "options.autofish.clear_regex.tooltip_0": "使用聊天栏正则表达式",
+  "options.autofish.clear_regex.tooltip_1": "来触发重新投掷钓鱼竿.",
+  "options.autofish.clear_regex.tooltip_2": "\u00A76可设置 \u00A7a正则表达式\u00A76.",
+
+  "options.autofish.basic.title": "基本选项",
+  "options.autofish.advanced.title": "高级选项"
+}
