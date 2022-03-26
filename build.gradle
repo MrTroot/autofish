@@ -18,6 +18,7 @@ repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 	maven { url "https://minecraft.curseforge.com/api/maven" }
+	maven { url "https://maven.terraformersmc.com/releases" }
 }
 
 dependencies {
@@ -34,6 +35,8 @@ dependencies {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
 	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+
+	modImplementation "com.terraformersmc:modmenu:3.0.1"
 }
 
 processResources {

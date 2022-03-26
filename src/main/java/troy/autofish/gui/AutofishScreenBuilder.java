@@ -5,7 +5,6 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.impl.builders.SubCategoryBuilder;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -21,13 +20,13 @@ public class AutofishScreenBuilder {
         else return new TranslatableText("options.autofish.toggle.off");
     };
 
-    public static Screen buildScreen(FabricModAutofish modAutofish, MinecraftClient client) {
+    public static Screen buildScreen(FabricModAutofish modAutofish, Screen parentScreen) {
 
         Config defaults = new Config();
         Config config = modAutofish.getConfig();
 
         ConfigBuilder builder = ConfigBuilder.create()
-                .setParentScreen(client.currentScreen)
+                .setParentScreen(parentScreen)
                 .setTitle(new TranslatableText("options.autofish.title"))
                 .transparentBackground()
                 .setDoesConfirmSave(true)

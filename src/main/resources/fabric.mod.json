@@ -17,6 +17,9 @@
   "entrypoints": {
     "client": [
       "troy.autofish.FabricModAutofish"
+    ],
+    "modmenu": [
+      "troy.autofish.modmenu.ModMenuApiAutofish"
     ]
   },
   "mixins": [
