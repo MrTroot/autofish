@@ -111,12 +111,19 @@ public class Autofish {
                     //this prevents false casts if we are holding a rod but not fishing
                     if (hookExists || (timeMillis - hookRemovedAt < 2000)) {
                         //make sure there is actually something there in the regex field
-                        if (org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty())
-                            return;
-                        //check if it matches
-                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
-                        if (matcher.find()) {
-                            queueRecast();
+                        if (!org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty()){
+                            //check if it matches
+                            Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
+                            if (matcher.find()) {
+                                queueRecast();
+                                }
+                            }
+                        //Same as the upper one
+                        if(!org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getAutoturningRegex()).isEmpty()) {
+                            Matcher matcher2 = Pattern.compile(modAutofish.getConfig().getAutoturningRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
+                            if (matcher2.find()) {
+                                turn();
+                            }
                         }
                     }
                 }
@@ -197,6 +204,17 @@ public class Autofish {
                 }
                 client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
             }
+        }
+    }
+
+    public void turn() {
+        if(client.player != null && client != null) {
+            float yaw = client.player.getYaw();
+            float angle = modAutofish.getConfig().getAutoturningAngle();
+            if( angle < -180 || angle > 180) modAutofish.getConfig().setAutoturnAngle(90);
+            if( yaw + angle > 180) client.player.setYaw(yaw + angle - 360);
+            if( yaw + angle < -180) client.player.setYaw(yaw + angle + 360);
+            else client.player.setYaw( yaw + angle );
         }
     }
 

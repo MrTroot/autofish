@@ -9,6 +9,8 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import troy.autofish.config.Config;
 import troy.autofish.config.ConfigManager;
@@ -22,6 +24,7 @@ public class FabricModAutofish implements ClientModInitializer {
     private AutofishScheduler scheduler;
     private KeyBinding autofishGuiKey;
     private ConfigManager configManager;
+    public static Logger AUTOFISH = LogManager.getLogger("autofish");
 
     @Override
     public void onInitializeClient() {

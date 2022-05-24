@@ -1,0 +1,72 @@
+{
+  "key.autofish.open_gui": "打开自动钓鱼GUI",
+  "options.autofish.title": "自动钓鱼设置",
+
+  "options.autofish.toggle.on": "\u00A7a开启",
+  "options.autofish.toggle.off": "\u00A7e关闭",
+
+  "options.autofish.enable.title": "启用自动钓鱼",
+  "options.autofish.enable.tooltip": "切换整个mod的启用状态",
+
+  "options.autofish.multirod.title": "使用多个钓竿",
+  "options.autofish.multirod.tooltip_0": "循环使用所有",
+  "options.autofish.multirod.tooltip_1": "快捷栏中可用的钓竿，",
+  "options.autofish.multirod.tooltip_2": "当钓竿快要损坏时使用下一个钓竿",
+
+  "options.autofish.break_protection.title": "启用钓竿破损保护",
+  "options.autofish.break_protection.tooltip_0": "在破损前停止使用",
+  "options.autofish.break_protection.tooltip_1": "耐久度低的钓鱼竿",
+
+  "options.autofish.persistent.title": "启用自动重抛竿",
+  "options.autofish.persistent.tooltip_0": "启用这个来让鱼竿",
+  "options.autofish.persistent.tooltip_1": "保持甩钩状态",
+  "options.autofish.persistent.tooltip_2": "如果需要，每十秒检查一次",
+  "options.autofish.persistent.tooltip_3": "甩钩状态",
+  "options.autofish.persistent.tooltip_4": "这个对卡顿的问题",
+  "options.autofish.persistent.tooltip_5": "或需要长时间钓鱼时有效",
+
+  "options.autofish.sound.title": "使用声音检测法",
+  "options.autofish.sound.tooltip_0": "\u00A76更新，更准确的检测方法",
+  "options.autofish.sound.tooltip_1": "\u00A76检测上钩的声音",
+  "options.autofish.sound.tooltip_2": "\u00A76而不是鱼钩的移动。",
+  "options.autofish.sound.tooltip_3": "- 你必须在鱼钩附近",
+  "options.autofish.sound.tooltip_4": "  来让它工作。",
+  "options.autofish.sound.tooltip_5": "- 如果有其他玩家在附近",
+  "options.autofish.sound.tooltip_6": "  它可能会错误地收钩！",
+  "options.autofish.sound.tooltip_7": "\u00A7c提示：这个选项仅仅",
+  "options.autofish.sound.tooltip_8": "\u00A7c在多人模式下运作。单人模式使用",
+  "options.autofish.sound.tooltip_9": "\u00A7c它自己的检测方式",
+
+  "options.autofish.multiplayer_compat.title": "强制使用多人模式检测(模组兼容)",
+  "options.autofish.multiplayer_compat.tooltip_0": "在单人模式中强制使用",
+  "options.autofish.multiplayer_compat.tooltip_1": "多人模式检测法",
+  "options.autofish.multiplayer_compat.tooltip_2": "它提供与第三方模组的兼容性",
+
+  "options.autofish.recast_delay.title": "重抛钩计时(ms)",
+  "options.autofish.recast_delay.value": "%d ms",
+  "options.autofish.recast_delay.tooltip_0": "调整钓上鱼与",
+  "options.autofish.recast_delay.tooltip_1": "重抛钩之间的时间间隔。",
+
+  "options.autofish.clear_regex.title": "启用钓钩防清理",
+  "options.autofish.clear_regex.tooltip_0": "当这个正则表达式被匹配时",
+  "options.autofish.clear_regex.tooltip_1": "重新抛钩。",
+  "options.autofish.clear_regex.tooltip_2": "\u00A76请使用 \u00A7a正则表达式\u00A76",
+
+  "options.autofish.basic.title": "基础设置",
+  "options.autofish.advanced.title": "高级设置",
+
+  "options.autofish.useautoturning": "启用自动旋转",
+  "options.autofish.useautoturning.tooltip_0": "为了在 MCmmo 服务器上钓鱼",
+  "options.autofish.useautoturning.tooltip_1": "可以使用自动旋转来正常钓鱼",
+  "options.autofish.useautoturning.tooltip_2": "使用前请搭建足够大的水池",
+
+  "options.autofish.autoturningangle" : "自动旋转角度",
+  "options.autofish.autoturningangle.tooltip_0": "设置自动旋转的角度",
+  "options.autofish.autoturningangle.tooltip_1": "使用§6浮点数§6",
+  "options.autofish.autoturningangle.tooltip_2": "范围为-180~180",
+
+  "options.autofish.autoturningregex": "自动旋转表达式",
+  "options.autofish.autoturningregex.tooltip_0": "当这个表达式被匹配时",
+  "options.autofish.autoturningregex.tooltip_1": "将会触发自动旋转",
+  "options.autofish.autoturningregex.tooltip_2": "§6请使用 §a正则表达式§6"
+}
