@@ -43,7 +43,9 @@ public class AutofishScreenBuilder {
         //Enable Autofish
         AbstractConfigListEntry toggleAutofish = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.enable.title"), config.isAutofishEnabled())
                 .setDefaultValue(defaults.isAutofishEnabled())
-                .setTooltip(new TranslatableText("options.autofish.enable.tooltip"))
+                .setTooltip(
+                        new TranslatableText("options.autofish.enable.tooltip")
+                )
                 .setSaveConsumer(newValue -> {
                     modAutofish.getConfig().setAutofishEnabled(newValue);
                 })
@@ -157,6 +159,44 @@ public class AutofishScreenBuilder {
                 })
                 .build();
 
+        //UseAutoturning 使用自动转向
+        AbstractConfigListEntry useAutoturning = entryBuilder.startBooleanToggle(new TranslatableText("options.autofish.useautoturning"), config.isUseAutoturning())
+                .setDefaultValue(defaults.isUseAutoturning())
+                .setTooltip(
+                        new TranslatableText("options.autofish.useautoturning.tooltip_0"),
+                        new TranslatableText("options.autofish.useautoturning.tooltip_1"),
+                        new TranslatableText("options.autofish.useautoturning.tooltip_2")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setUseAutoturning(newValue);
+                })
+                .build();
+
+        //setAutoturning Angle 设置自动转向角度
+        AbstractConfigListEntry autoturningAngle = entryBuilder.startFloatField(new TranslatableText("options.autofish.autoturningangle"), config.getAutoturningAngle())
+                .setDefaultValue(defaults.getAutoturningAngle())
+                .setTooltip(
+                        new TranslatableText("options.autofish.autoturningangle.tooltip_0"),
+                        new TranslatableText("options.autofish.autoturningangle.tooltip_1"),
+                        new TranslatableText("options.autofish.autoturningangle.tooltip_2")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setAutoturnAngle(newValue);
+                })
+                .build();
+
+        //SetAutoturning Regex 设置自动转向正则表达式
+        AbstractConfigListEntry autoturningRegex = entryBuilder.startTextField(new TranslatableText("options.autofish.autoturningregex"), config.getAutoturningRegex())
+                .setDefaultValue(defaults.getAutoturningRegex())
+                .setTooltip(
+                        new TranslatableText("options.autofish.autoturningregex.tooltip_0"),
+                        new TranslatableText("options.autofish.autoturningregex.tooltip_1"),
+                        new TranslatableText("options.autofish.autoturningregex.tooltip_2")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setAutoturningRegex(newValue);
+                })
+                .build();
 
         SubCategoryBuilder subCatBuilderBasic = entryBuilder.startSubCategory(new TranslatableText("options.autofish.basic.title"));
         subCatBuilderBasic.add(toggleAutofish);
@@ -170,6 +210,9 @@ public class AutofishScreenBuilder {
         subCatBuilderAdvanced.add(toggleForceMPDetection);
         subCatBuilderAdvanced.add(recastDelaySlider);
         subCatBuilderAdvanced.add(clearLagRegexField);
+        subCatBuilderAdvanced.add(useAutoturning);
+        subCatBuilderAdvanced.add(autoturningRegex);
+        subCatBuilderAdvanced.add(autoturningAngle);
         subCatBuilderAdvanced.setExpanded(true);
 
         configCat.addEntry(subCatBuilderBasic.build());

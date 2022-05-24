@@ -53,5 +53,20 @@
   "options.autofish.clear_regex.tooltip_2": "\u00A76This pattern is a \u00A7aRegular Expression\u00A76.",
 
   "options.autofish.basic.title": "Basic Options",
-  "options.autofish.advanced.title": "Advanced Options"
+  "options.autofish.advanced.title": "Advanced Options",
+
+  "options.autofish.useautoturning": "Enable Autoturning",
+  "options.autofish.useautoturning.tooltip_0": "To fish in an MCmmo server,",
+  "options.autofish.useautoturning.tooltip_1": "Autoturning can be used to fish normally.",
+  "options.autofish.useautoturning.tooltip_2": "Please build a big enough pool before use it.",
+
+  "options.autofish.autoturningangle" : "Autoturning Angle",
+  "options.autofish.autoturningangle.tooltip_0": "Set the angle of autoturning.",
+  "options.autofish.autoturningangle.tooltip_1": "Use§6Float",
+  "options.autofish.autoturningangle.tooltip_2": "The range is -180~180.",
+
+  "options.autofish.autoturningregex": "Autoturning Regex",
+  "options.autofish.autoturningregex.tooltip_0": "When this pattern is matched,",
+  "options.autofish.autoturningregex.tooltip_1": "Autoturn will be touched off.",
+  "options.autofish.autoturningregex.tooltip_2": "§6Please use §aRegular Expression§6"
 }

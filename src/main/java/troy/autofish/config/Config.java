@@ -10,8 +10,11 @@ public class Config {
     @Expose boolean persistentMode = false;
     @Expose boolean useSoundDetection = false;
     @Expose boolean forceMPDetection = false;
+    @Expose boolean useAutoturning = true;
     @Expose long recastDelay = 1500;
+    @Expose float autoturnAngle = 90;
     @Expose String clearLagRegex = "\\[ClearLag\\] Removed [0-9]+ Entities!";
+    @Expose String autoturningRegex = "(.*)sense(.*)|(.*)过度捕捞(.*)";
 
     public boolean isAutofishEnabled() {
         return isAutofishEnabled;
@@ -33,12 +36,22 @@ public class Config {
 
     public boolean isForceMPDetection() { return forceMPDetection; }
 
+    public boolean isUseAutoturning(){return useAutoturning;}
+
     public long getRecastDelay() {
         return recastDelay;
     }
 
+    public float getAutoturningAngle(){
+        return autoturnAngle;
+    }
+
     public String getClearLagRegex() {
         return clearLagRegex;
+    }
+
+    public String getAutoturningRegex() {
+        return autoturningRegex;
     }
 
     public void setAutofishEnabled(boolean autofishEnabled) { isAutofishEnabled = autofishEnabled; }
@@ -51,7 +64,9 @@ public class Config {
         this.noBreak = noBreak;
     }
 
-    public void setPersistentMode(boolean persistentMode) { this.persistentMode = persistentMode; }
+    public void setPersistentMode(boolean persistentMode) {
+        this.persistentMode = persistentMode;
+    }
 
     public void setUseSoundDetection(boolean useSoundDetection) {
         this.useSoundDetection = useSoundDetection;
@@ -59,12 +74,25 @@ public class Config {
 
     public void setForceMPDetection(boolean forceMPDetection) { this.forceMPDetection = forceMPDetection; }
 
+    public void setUseAutoturning(boolean useAutoturning)
+    {
+        this.useAutoturning = useAutoturning;
+    }
+
     public void setRecastDelay(long recastDelay) {
         this.recastDelay = recastDelay;
     }
 
+    public void setAutoturnAngle(float autoturnAngle) {
+        this.autoturnAngle = autoturnAngle;
+    }
+
     public void setClearLagRegex(String clearLagRegex) {
         this.clearLagRegex = clearLagRegex;
+    }
+
+    public void setAutoturningRegex(String autoturningRegex) {
+        this.autoturningRegex = autoturningRegex;
     }
 
     /**

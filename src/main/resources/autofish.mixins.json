@@ -3,10 +3,9 @@
   "minVersion": "0.8",
   "package": "troy.autofish.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [],
   "client": [
-    "MixinFishHookEntity",
-    "MixinClientPlayNetworkHandler"
+    "MixinClientPlayNetworkHandler",
+    "MixinFishHookEntity"
   ],
   "injectors": {
     "defaultRequire": 1
