@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.StringHelper;
 import net.minecraft.util.Hand;
@@ -112,8 +111,7 @@ public class Autofish {
                     //this prevents false casts if we are holding a rod but not fishing
                     if (hookExists || (timeMillis - hookRemovedAt < 2000)) {
                         //make sure there is actually something there in the regex field
-                        boolean regexIsEmpty = org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty();
-                        if (!regexIsEmpty){
+                        if (!org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty()){
                             //check if it matches
                             Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
                             if (matcher.find()) {
