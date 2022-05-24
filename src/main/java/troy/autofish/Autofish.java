@@ -214,7 +214,7 @@ public class Autofish {
             if( angle < -180 || angle > 180) modAutofish.getConfig().setAutoturnAngle(90);
             if( yaw + angle > 180) client.player.setYaw(yaw + angle - 360);
             if( yaw + angle < -180) client.player.setYaw(yaw + angle + 360);
-            else client.player.setYaw(yaw+90);
+            else client.player.setYaw( yaw + angle );
         }
     }
 
