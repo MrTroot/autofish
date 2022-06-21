@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.10-SNAPSHOT'
+	id 'fabric-loom' version '0.12-SNAPSHOT'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -11,8 +11,8 @@ group = project.maven_group
 
 def includeDep = true
 
-minecraft {
-}
+//minecraft {
+//}
 
 repositories {
 	maven { url "https://maven.shedaniel.me/" }

@@ -53,7 +53,7 @@ public class Autofish {
 
         if (client.world != null && client.player != null && modAutofish.getConfig().isAutofishEnabled()) {
 
-           timeMillis = Util.getMeasuringTimeMs(); //update current working time for this tick
+            timeMillis = Util.getMeasuringTimeMs(); //update current working time for this tick
 
             if (isHoldingFishingRod()) {
                 if (client.player.fishHook != null) {
@@ -114,7 +114,7 @@ public class Autofish {
                         if (org.apache.commons.lang3.StringUtils.deleteWhitespace(modAutofish.getConfig().getClearLagRegex()).isEmpty())
                             return;
                         //check if it matches
-                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.getMessage().getString()));
+                        Matcher matcher = Pattern.compile(modAutofish.getConfig().getClearLagRegex(), Pattern.CASE_INSENSITIVE).matcher(StringHelper.stripTextFormat(packet.comp_763().getString()));
                         if (matcher.find()) {
                             queueRecast();
                         }
@@ -190,7 +190,7 @@ public class Autofish {
     public void useRod() {
         if(client.player != null && client.world != null) {
             Hand hand = getCorrectHand();
-            ActionResult actionResult = client.interactionManager.interactItem(client.player, client.world, hand);
+            ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
             if (actionResult.isAccepted()) {
                 if (actionResult.shouldSwingHand()) {
                     client.player.swingHand(hand);
