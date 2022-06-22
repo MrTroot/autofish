@@ -1,0 +1,57 @@
+{
+  "key.autofish.open_gui": "Открыть интерфейс Autofish",
+  "options.autofish.title": "Настройки Autofish",
+
+  "options.autofish.toggle.on": "\u00A7aВключено",
+  "options.autofish.toggle.off": "\u00A7eВыключено",
+
+  "options.autofish.enable.title": "Активировать Autofish",
+  "options.autofish.enable.tooltip": "Включает/выключает целый мод.",
+
+  "options.autofish.multirod.title": "Активировать MultiRod",
+  "options.autofish.multirod.tooltip_0": "Циклически проходит все",
+  "options.autofish.multirod.tooltip_1": "доступные удочки в горячей панели,",
+  "options.autofish.multirod.tooltip_2": "переходит к следующему по мере его разрушения.",
+
+  "options.autofish.break_protection.title": "Активировать защиту от разрушения",
+  "options.autofish.break_protection.tooltip_0": "Прекращает использование удочек с низкой",
+  "options.autofish.break_protection.tooltip_1": "прочностью до его разрушения.",
+
+  "options.autofish.persistent.title": "Активировать непрекращающийся режим",
+  "options.autofish.persistent.tooltip_0": "Активируй параметр, чтобы всегда закидывать",
+  "options.autofish.persistent.tooltip_1": "рыболовный крючок всякий раз, когда в руке удочка.",
+  "options.autofish.persistent.tooltip_2": "Проверяет каждые 10 секунд и повторно закидывает",
+  "options.autofish.persistent.tooltip_3": "в случае необходимости.",
+  "options.autofish.persistent.tooltip_4": "Это полезно для проблем с зависанием или",
+  "options.autofish.persistent.tooltip_5": "когда рыбалка проводится в течение длительного времени.",
+  
+  "options.autofish.sound.title": "Использовать обнаружение звука",
+  "options.autofish.sound.tooltip_0": "\u00A76Новое, более точное обнаружение, работающее на",
+  "options.autofish.sound.tooltip_1": "\u00A76основе звуков поплавка в отличие от",
+  "options.autofish.sound.tooltip_2": "\u00A76стандартного обнаружения движения крючка.",
+  "options.autofish.sound.tooltip_3": "- Ты должен быть довольно близко к",
+  "options.autofish.sound.tooltip_4": "крючку, чтобы это сработало.",
+  "options.autofish.sound.tooltip_5": "- Если другие крючки игроков находятся рядом",
+  "options.autofish.sound.tooltip_6": "с твоим, поплавок может вызвать ложный улов!",
+  "options.autofish.sound.tooltip_7": "\u00A7cПримечание: этот параметр действует только",
+  "options.autofish.sound.tooltip_8": "\u00A7cв сетевой игре. Одиночная игра использует своё собственное",
+  "options.autofish.sound.tooltip_9": "\u00A7cобнаружение.",
+
+  "options.autofish.multiplayer_compat.title": "Принудительное сетевое обнаружение (Совместимо с модами)",
+  "options.autofish.multiplayer_compat.tooltip_0": "Принудительно использует обнаружение",
+  "options.autofish.multiplayer_compat.tooltip_1": "как в Сетевой игре, пребывая в Одиночной игре.",
+  "options.autofish.multiplayer_compat.tooltip_2": "Это предоставляет совместимость со сторонними модами.",
+
+  "options.autofish.recast_delay.title": "Задержка повторного закидывания (м/сек)",
+  "options.autofish.recast_delay.value": "%d м/сек.",
+  "options.autofish.recast_delay.tooltip_0": "Устанавливает задержку между вылавливанием",
+  "options.autofish.recast_delay.tooltip_1": "рыбы и повторно закидывает удочку.",
+
+  "options.autofish.clear_regex.title": "ClearLag чат-шаблон",
+  "options.autofish.clear_regex.tooltip_0": "Повторно закидывает удочку, когда",
+  "options.autofish.clear_regex.tooltip_1": "этот шаблон совпадает в чате.",
+  "options.autofish.clear_regex.tooltip_2": "\u00A76Этот шаблон — \u00A7aРегулярное выражение\u00A76.",
+
+  "options.autofish.basic.title": "Основные параметры",
+  "options.autofish.advanced.title": "Дополнительные параметры"
+}
