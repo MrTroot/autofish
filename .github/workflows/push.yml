@@ -16,3 +16,9 @@ jobs:
     
     - name: Execute Gradle build
       run: ./gradlew build
+
+    - name: Save Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: autofish-*
+        path: build/libs/
