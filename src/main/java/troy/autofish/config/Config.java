@@ -72,8 +72,8 @@ public class Config {
      */
     public boolean enforceConstraints() {
         boolean changed = false;
-        if (recastDelay < 900) {
-            recastDelay = 900;
+        if (recastDelay < 500) {
+            recastDelay = 500;
             changed = true;
         }
         if (clearLagRegex == null) {

@@ -130,7 +130,7 @@ public class AutofishScreenBuilder {
                 .build();
 
         //Recast Delay
-        AbstractConfigListEntry recastDelaySlider = entryBuilder.startLongSlider(Text.translatable("options.autofish.recast_delay.title"), config.getRecastDelay(), 1000, 5000)
+        AbstractConfigListEntry recastDelaySlider = entryBuilder.startLongSlider(Text.translatable("options.autofish.recast_delay.title"), config.getRecastDelay(), 500, 5000)
                 .setDefaultValue(defaults.getRecastDelay())
                 .setTooltip(
                         Text.translatable("options.autofish.recast_delay.tooltip_0"),
