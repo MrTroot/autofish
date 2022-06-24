@@ -11,8 +11,10 @@ public class Config {
     @Expose boolean useSoundDetection = false;
     @Expose boolean forceMPDetection = false;
     @Expose boolean useAutoturning = true;
+    @Expose boolean useBoatfishing = true;
     @Expose long recastDelay = 1500;
     @Expose float autoturnAngle = 90;
+    @Expose float boatfishingAngle = 180;
     @Expose String clearLagRegex = "\\[ClearLag\\] Removed [0-9]+ Entities!";
     @Expose String autoturningRegex = "(.*)sense(.*)|(.*)过度捕捞(.*)";
 
@@ -38,6 +40,8 @@ public class Config {
 
     public boolean isUseAutoturning(){return useAutoturning;}
 
+    public boolean isUseBoatfishing(){return useBoatfishing;}
+
     public long getRecastDelay() {
         return recastDelay;
     }
@@ -46,6 +50,7 @@ public class Config {
         return autoturnAngle;
     }
 
+    public float getBoatfishingAngle(){return boatfishingAngle;}
     public String getClearLagRegex() {
         return clearLagRegex;
     }
@@ -79,6 +84,8 @@ public class Config {
         this.useAutoturning = useAutoturning;
     }
 
+    public void setUseBoatfishing(boolean useBoatfishing){this.useBoatfishing = useBoatfishing;}
+
     public void setRecastDelay(long recastDelay) {
         this.recastDelay = recastDelay;
     }
@@ -86,6 +93,8 @@ public class Config {
     public void setAutoturnAngle(float autoturnAngle) {
         this.autoturnAngle = autoturnAngle;
     }
+
+    public void setBoatfishingAngle(float boatfishingAngle){this.boatfishingAngle = boatfishingAngle;}
 
     public void setClearLagRegex(String clearLagRegex) {
         this.clearLagRegex = clearLagRegex;
@@ -104,10 +113,23 @@ public class Config {
             recastDelay = 900;
             changed = true;
         }
+        if (autoturnAngle < -180 || autoturnAngle > 180) {
+            autoturnAngle = 90;
+            changed = true;
+        }
+        if (boatfishingAngle < -180 || boatfishingAngle > 180) {
+            boatfishingAngle = 0;
+            changed = true;
+        }
         if (clearLagRegex == null) {
             clearLagRegex = "";
             changed = true;
         }
+        if (autoturningRegex == null) {
+            autoturningRegex = "";
+            changed = true;
+        }
+
         return changed;
     }
 }
