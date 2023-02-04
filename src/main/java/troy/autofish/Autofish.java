@@ -189,13 +189,17 @@ public class Autofish {
 
     public void useRod() {
         if(client.player != null && client.world != null) {
-            Hand hand = getCorrectHand();
-            ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
-            if (actionResult.isAccepted()) {
-                if (actionResult.shouldSwingHand()) {
-                    client.player.swingHand(hand);
+            try {
+                Hand hand = getCorrectHand();
+                ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
+                if (actionResult.isAccepted()) {
+                    if (actionResult.shouldSwingHand()) {
+                        client.player.swingHand(hand);
+                    }
+                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
                 }
-                client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
+            } catch(IllegalStateException exception) {
+                exception.printStackTrace();
             }
         }
     }
