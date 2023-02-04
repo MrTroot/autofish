@@ -1,0 +1,57 @@
+{
+  "key.autofish.open_gui": "자동낚시 GUI 열기",
+  "options.autofish.title": "자동낚시 설정",
+
+  "options.autofish.toggle.on": "\u00A7aOn",
+  "options.autofish.toggle.off": "\u00A7eOff",
+
+  "options.autofish.enable.title": "자동낚시 활성화",
+  "options.autofish.enable.tooltip": "자동낚시 모드를 켜거나 끕니다.",
+
+  "options.autofish.multirod.title": "여러 낚시대 사용 활성화",
+  "options.autofish.multirod.tooltip_0": "기존에 사용하던 낚시대가 파괴되면,",
+  "options.autofish.multirod.tooltip_1": "핫바에 있는 다른 낚시대를 대신하여",
+  "options.autofish.multirod.tooltip_2": "사용합니다.",
+
+  "options.autofish.break_protection.title": "낚시대 파괴 방지 활성화",
+  "options.autofish.break_protection.tooltip_0": "낚시대의 내구도가 낮으면",
+  "options.autofish.break_protection.tooltip_1": "자동으로 낚시를 중단합니다.",
+
+  "options.autofish.persistent.title": "지속 모드 활성화",
+  "options.autofish.persistent.tooltip_0": "낚시대를 손에 들고 있을 때마다 항상",
+  "options.autofish.persistent.tooltip_1": "낚시찌 던지기를 유지하려면 이 기능을 활성화하십시오.",
+  "options.autofish.persistent.tooltip_2": "10초마다, 낚시찌를 다시 던져야 하는 경우에",
+  "options.autofish.persistent.tooltip_3": "낚시찌를 다시 던져줍니다.",
+  "options.autofish.persistent.tooltip_4": "지속 모드는 랙이 걸리는 환경이나 오랫동안",
+  "options.autofish.persistent.tooltip_5": "낚시를 하고 싶을 때 유용합니다.",
+
+  "options.autofish.sound.title": "소리 감지 방식 사용",
+  "options.autofish.sound.tooltip_0": "\u00A76낚시찌의 움직임을 감지하는 것보다",
+  "options.autofish.sound.tooltip_1": "\u00A76정확한, 새로운 방식입니다.",
+  "options.autofish.sound.tooltip_2": "\u00A76이 방식은 낚시찌가 첨벙 거리는 소리를 감지합니다.",
+  "options.autofish.sound.tooltip_3": "- 이 방식을 사용하려면 던진 낚시찌가",
+  "options.autofish.sound.tooltip_4": "  플레이어와 충분히 가까워야 합니다.",
+  "options.autofish.sound.tooltip_5": "- 다른 플레이어의 낚시찌가 당신 근처에",
+  "options.autofish.sound.tooltip_6": "  있을 경우, 오작동의 우려가 있습니다.",
+  "options.autofish.sound.tooltip_7": "\u00A7c이 옵션은 멀티플레이에서만",
+  "options.autofish.sound.tooltip_8": "\u00A7c활성화 됩니다. 싱글플레이에서는 다른 방식을",
+  "options.autofish.sound.tooltip_9": "\u00A7c사용합니다.",
+
+  "options.autofish.multiplayer_compat.title": "감지 방식 고정",
+  "options.autofish.multiplayer_compat.tooltip_0": "싱글플레이의 경우에도 멀티플레이의",
+  "options.autofish.multiplayer_compat.tooltip_1": "경우처럼 소리 감지 방식을 이용하도록 강제합니다.",
+  "options.autofish.multiplayer_compat.tooltip_2": "다른 모드와의 호환성을 위해 사용할 수 있습니다.",
+
+  "options.autofish.recast_delay.title": "낚시 간격 (밀리초)",
+  "options.autofish.recast_delay.value": "%d ms",
+  "options.autofish.recast_delay.tooltip_0": "낚시에 성공한 뒤, 다음 낚시찌를",
+  "options.autofish.recast_delay.tooltip_1": "던지기 전까지의 간격을 조절합니다.",
+
+  "options.autofish.clear_regex.title": "ClearLag Chat Pattern",
+  "options.autofish.clear_regex.tooltip_0": "해당 패턴을 채팅에서 감지하면",
+  "options.autofish.clear_regex.tooltip_1": "낚시찌를 자동으로 다시 던집니다.",
+  "options.autofish.clear_regex.tooltip_2": "\u00A7a정규 표현식\u00A76의 형식으로 기입하여 주십시오.",
+
+  "options.autofish.basic.title": "기본 옵션",
+  "options.autofish.advanced.title": "고급 옵션"
+}
