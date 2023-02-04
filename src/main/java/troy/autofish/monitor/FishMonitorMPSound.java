@@ -4,8 +4,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.PlaySoundFromEntityS2CPacket;
-import net.minecraft.network.packet.s2c.play.PlaySoundIdS2CPacket;
 import net.minecraft.network.packet.s2c.play.PlaySoundS2CPacket;
+import net.minecraft.sound.SoundEvent;
 import troy.autofish.Autofish;
 
 public class FishMonitorMPSound implements FishMonitorMP {
@@ -23,7 +23,7 @@ public class FishMonitorMPSound implements FishMonitorMP {
     @Override
     public void handlePacket(Autofish autofish, Packet<?> packet, MinecraftClient minecraft) {
 
-        if (packet instanceof PlaySoundS2CPacket || packet instanceof PlaySoundIdS2CPacket || packet instanceof PlaySoundFromEntityS2CPacket) {
+        if (packet instanceof PlaySoundS2CPacket || packet instanceof PlaySoundFromEntityS2CPacket) {
             //TODO investigate PlaySoundFromEntityS2CPacket; i dont think its ever used for fishing but whatever
 
             String soundName;
@@ -31,13 +31,8 @@ public class FishMonitorMPSound implements FishMonitorMP {
 
             if (packet instanceof PlaySoundS2CPacket) {
                 PlaySoundS2CPacket soundPacket = (PlaySoundS2CPacket) packet;
-                soundName = soundPacket.getSound().getId().toString();
-                x = soundPacket.getX();
-                y = soundPacket.getY();
-                z = soundPacket.getZ();
-            } else if (packet instanceof PlaySoundIdS2CPacket) {
-                PlaySoundIdS2CPacket soundPacket = (PlaySoundIdS2CPacket) packet;
-                soundName = soundPacket.getSoundId().toString();
+                SoundEvent soundEvent = (SoundEvent) soundPacket.getSound();
+                soundName = soundEvent.getId().toString();
                 x = soundPacket.getX();
                 y = soundPacket.getY();
                 z = soundPacket.getZ();
