@@ -76,15 +76,18 @@ public class Autofish {
      * for singleplayer detection only
      */
     public void tickFishingLogic(Entity owner, int ticksCatchable) {
-        if (modAutofish.getConfig().isAutofishEnabled() && !shouldUseMPDetection()) {
-            //null checks for sanity
-            if (client.player != null && client.player.fishHook != null) {
-                //hook is catchable and player is correct
-                if (ticksCatchable > 0 && owner.getUuid().compareTo(client.player.getUuid()) == 0) {
-                    catchFish();
+        //This callback will come from the Server thread. Use client.execute() to run this action in the Render thread
+        client.execute(() -> {
+            if (modAutofish.getConfig().isAutofishEnabled() && !shouldUseMPDetection()) {
+                //null checks for sanity
+                if (client.player != null && client.player.fishHook != null) {
+                    //hook is catchable and player is correct
+                    if (ticksCatchable > 0 && owner.getUuid().compareTo(client.player.getUuid()) == 0) {
+                        catchFish();
+                    }
                 }
             }
-        }
+        });
     }
 
     /**
@@ -189,17 +192,13 @@ public class Autofish {
 
     public void useRod() {
         if(client.player != null && client.world != null) {
-            try {
-                Hand hand = getCorrectHand();
-                ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
-                if (actionResult.isAccepted()) {
-                    if (actionResult.shouldSwingHand()) {
-                        client.player.swingHand(hand);
-                    }
-                    client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
+            Hand hand = getCorrectHand();
+            ActionResult actionResult = client.interactionManager.interactItem(client.player, hand);
+            if (actionResult.isAccepted()) {
+                if (actionResult.shouldSwingHand()) {
+                    client.player.swingHand(hand);
                 }
-            } catch(IllegalStateException exception) {
-                exception.printStackTrace();
+                client.gameRenderer.firstPersonRenderer.resetEquipProgress(hand);
             }
         }
     }
