@@ -3,7 +3,7 @@ package troy.autofish.monitor;
 import net.minecraft.block.Material;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.network.Packet;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.EntityVelocityUpdateS2CPacket;
 import net.minecraft.util.function.MaterialPredicate;
 import net.minecraft.util.math.BlockPos;
