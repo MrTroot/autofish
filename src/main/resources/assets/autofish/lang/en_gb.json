@@ -47,7 +47,7 @@
   "options.autofish.recast_delay.tooltip_0": "Adjusts the delay between catching",
   "options.autofish.recast_delay.tooltip_1": "a fish and recasting the rod.",
 
-  "options.autofish.clear_regex.title": "Enable Persistent Mode",
+  "options.autofish.clear_regex.title": "ClearLag Chat Pattern",
   "options.autofish.clear_regex.tooltip_0": "Recast the fishing rod when",
   "options.autofish.clear_regex.tooltip_1": "this pattern is matched in chat.",
   "options.autofish.clear_regex.tooltip_2": "\u00A76This pattern is a \u00A7aRegular Expression\u00A76.",
