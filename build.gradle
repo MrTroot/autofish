@@ -32,7 +32,7 @@ dependencies {
 	}
 	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
 
-	modImplementation "com.terraformersmc:modmenu:5.0.2"
+	modImplementation "com.terraformersmc:modmenu:7.0.0"
 }
 
 processResources {
