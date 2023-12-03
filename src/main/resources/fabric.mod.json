@@ -2,13 +2,26 @@
   "schemaVersion": 1,
   "id": "autofish",
   "version": "${version}",
-  "name": "Autofish",
-  "description": "Automatically reels in and recasts your fishing rod when you catch a fish.",
+  "name": "XPlus Autofish",
+  "description": "Automatically reels in and recasts your fishing rod when you catch a fish. Now for 1.19.4+.",
   "authors": [
-    "troyboy50"
+    "troyboy50",
+    "Wudji"
+  ],
+  "contributors": [
+    "7coil",
+    "VriskaSerket51",
+    "5HT2",
+    "DrakoTrogdor",
+    "Q2297045667",
+    "cbackas",
+    "ChloeDawn",
+    "DrakoTrogdor",
+    "myl7"
   ],
   "contact": {
-    "homepage": "https://minecraft.curseforge.com/projects/autofish"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/x-autofish",
+    "sources": "https://github.com/Wudji/XPlus-AutoFish"
   },
 
   "icon": "assets/autofish/icon.png",
