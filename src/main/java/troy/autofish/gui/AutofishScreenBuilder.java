@@ -62,6 +62,19 @@ public class AutofishScreenBuilder {
                 .setYesNoTextSupplier(yesNoTextSupplier)
                 .build();
 
+        //Enable Open Water Detection
+        AbstractConfigListEntry toggleOpenWaterDetection = entryBuilder.startBooleanToggle(Text.translatable("options.autofish.open_water_detection.title"), config.isOpenWaterDetectEnabled())
+                .setDefaultValue(defaults.isOpenWaterDetectEnabled())
+                .setTooltip(
+                        Text.translatable("options.autofish.open_water_detection.tooltip_0"),
+                        Text.translatable("options.autofish.open_water_detection.tooltip_1"),
+                        Text.translatable("options.autofish.open_water_detection.tooltip_2")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setOpenWaterDetectEnabled(newValue);
+                })
+                .setYesNoTextSupplier(yesNoTextSupplier)
+                .build();
         //Enable Break Protection
         AbstractConfigListEntry toggleBreakProtection = entryBuilder.startBooleanToggle(Text.translatable("options.autofish.break_protection.title"), config.isNoBreak())
                 .setDefaultValue(defaults.isNoBreak())
@@ -159,6 +172,7 @@ public class AutofishScreenBuilder {
         SubCategoryBuilder subCatBuilderBasic = entryBuilder.startSubCategory(Text.translatable("options.autofish.basic.title"));
         subCatBuilderBasic.add(toggleAutofish);
         subCatBuilderBasic.add(toggleMultiRod);
+        subCatBuilderBasic.add(toggleOpenWaterDetection);
         subCatBuilderBasic.add(toggleBreakProtection);
         subCatBuilderBasic.add((togglePersistentMode));
         subCatBuilderBasic.setExpanded(true);

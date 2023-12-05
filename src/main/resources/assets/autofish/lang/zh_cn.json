@@ -17,6 +17,11 @@
   "options.autofish.break_protection.tooltip_0": "在钓鱼竿断裂之前",
   "options.autofish.break_protection.tooltip_1": "停止使用耐久低的钓鱼竿",
 
+  "options.autofish.open_water_detection.title": "启用开放水域检测",
+  "options.autofish.open_water_detection.tooltip_0" : "在游戏版本20w12a(1.16)以上，",
+  "options.autofish.open_water_detection.tooltip_1" : "只有在开放水域才能获得宝藏战利品。",
+  "options.autofish.open_water_detection.tooltip_2" : "启用该选项后，当您未在开放水域钓鱼时将提醒您。",
+
   "options.autofish.persistent.title": "启用持续模式",
   "options.autofish.persistent.tooltip_0": "使其始终保持鱼钩为投掷状态",
   "options.autofish.persistent.tooltip_1": "每当钓鱼竿在手上时",
@@ -53,5 +58,9 @@
   "options.autofish.clear_regex.tooltip_2": "\u00A76可设置 \u00A7a正则表达式\u00A76.",
 
   "options.autofish.basic.title": "基本选项",
-  "options.autofish.advanced.title": "高级选项"
+  "options.autofish.advanced.title": "高级选项",
+
+  "info.autofish.open_water_detection.fail": "§c[自动钓鱼] 您当前钓鱼的区域不是开放水域，无法获得宝藏!§0",
+  "info.autofish.open_water_detection.success": "§2[自动钓鱼] 您当前钓鱼的区域是开放水域!§0"
+
 }

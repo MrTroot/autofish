@@ -1,19 +1,23 @@
 package troy.autofish;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.FishingRodItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.StringHelper;
 import net.minecraft.util.Hand;
+import net.minecraft.util.StringHelper;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import troy.autofish.monitor.FishMonitorMP;
 import troy.autofish.monitor.FishMonitorMPMotion;
 import troy.autofish.monitor.FishMonitorMPSound;
@@ -129,6 +133,7 @@ public class Autofish {
 
     public void catchFish() {
         if(!modAutofish.getScheduler().isRecastQueued()) { //prevents double reels
+            detectOpenWater(client.player.fishHook);
             //queue actions
             queueRodSwitch();
             queueRecast();
@@ -155,6 +160,40 @@ public class Autofish {
 
             switchToFirstRod(client.player);
         });
+    }
+
+    private void detectOpenWater(FishingBobberEntity bobber){
+        /*
+         * To catch items in the treasure category, the bobber must be in open water,
+         * defined as the 5×4×5 vicinity around the bobber resting on the water surface
+         * (2 blocks away horizontally, 2 blocks above the water surface, and 2 blocks deep).
+         * Each horizontal layer in this area must consist only of air and lily pads or water source blocks,
+         * waterlogged blocks without collision (such as signs, kelp, or coral fans), and bubble columns.
+         * (from Minecraft wiki)
+         * */
+        if(!modAutofish.getConfig().isOpenWaterDetectEnabled()) return;
+
+        int x = bobber.getBlockX();
+        int y = bobber.getBlockY();
+        int z = bobber.getBlockZ();
+        boolean flag = true;
+        for(int yi = -1; yi <= 2; yi++){
+            if(!(BlockPos.stream(x - 2, y + yi, z - 2, x + 2, y + yi, z + 2).allMatch((blockPos ->
+                    // every block is water
+                        bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.WATER
+                    )) || BlockPos.stream(x - 2, y + yi, z - 2, x + 2, y + yi, z + 2).allMatch((blockPos ->
+                    // or every block is air or lily pad
+                        bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.AIR
+                        || bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.LILY_PAD
+            )))){
+                // didn't pass the check
+                bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.fail"),true);
+                flag =false;
+            }
+        }
+        if(flag) bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.success"),true);
+
+
     }
 
     /**

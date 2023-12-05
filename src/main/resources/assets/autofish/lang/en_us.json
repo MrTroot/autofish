@@ -17,6 +17,12 @@
   "options.autofish.break_protection.tooltip_0": "Stop using rods with low",
   "options.autofish.break_protection.tooltip_1": "durability before they break.",
 
+  "options.autofish.open_water_detection.title": "Enable Open Water detection",
+  "options.autofish.open_water_detection.tooltip_0" : "In game versions above 20w12a(1.16),",
+  "options.autofish.open_water_detection.tooltip_1" : "You can only get treasure loot at open water.",
+  "options.autofish.open_water_detection.tooltip_2" : "This will alert you when you are not fishing at open water.",
+
+
   "options.autofish.persistent.title": "Enable Persistent Mode",
   "options.autofish.persistent.tooltip_0": "Enable this to always keep the fish hook",
   "options.autofish.persistent.tooltip_1": "cast whenever a rod is in hand.",
@@ -53,5 +59,8 @@
   "options.autofish.clear_regex.tooltip_2": "\u00A76This pattern is a \u00A7aRegular Expression\u00A76.",
 
   "options.autofish.basic.title": "Basic Options",
-  "options.autofish.advanced.title": "Advanced Options"
+  "options.autofish.advanced.title": "Advanced Options",
+
+  "info.autofish.open_water_detection.fail": "§c[Autofish] The area you're fishing in is not open water!§0",
+  "info.autofish.open_water_detection.success": "§2[Autofish] You're fishing in open water!§0"
 }
