@@ -177,7 +177,7 @@ public class Autofish {
         int y = bobber.getBlockY();
         int z = bobber.getBlockZ();
         boolean flag = true;
-        for(int yi = -1; yi <= 2; yi++){
+        for(int yi = -2; yi <= 2; yi++){
             if(!(BlockPos.stream(x - 2, y + yi, z - 2, x + 2, y + yi, z + 2).allMatch((blockPos ->
                     // every block is water
                         bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.WATER
