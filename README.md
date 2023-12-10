@@ -11,5 +11,5 @@ You can download the mod from:
 | Link type  | Link                                                         |
 | ---------- | ------------------------------------------------------------ |
 | Modrinth   | [https://modrinth.com/mod/x+-autofish](https://modrinth.com/mod/x+-autofish) |
-| Curseforge | [https://www.curseforge.com/minecraft/mc-mods/x-autofish](.curseforge.com/minecraft/mc-mods/x-autofish) |
+| Curseforge | [https://www.curseforge.com/minecraft/mc-mods/x-autofish](https://www.curseforge.com/minecraft/mc-mods/x-autofish) |
 

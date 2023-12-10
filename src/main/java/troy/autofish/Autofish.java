@@ -33,6 +33,8 @@ public class Autofish {
     private FishMonitorMP fishMonitorMP;
 
     private boolean hookExists = false;
+    private boolean alreadyAlertOP = false;
+    private boolean alreadyPassOP = false;
     private long hookRemovedAt = 0L;
 
     public long timeMillis = 0L;
@@ -187,11 +189,19 @@ public class Autofish {
                         || bobber.getEntityWorld().getBlockState(blockPos).getBlock() == Blocks.LILY_PAD
             )))){
                 // didn't pass the check
-                bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.fail"),true);
-                flag =false;
+                if(!alreadyAlertOP){
+                    bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.fail"),true);
+                    alreadyAlertOP = true;
+                    alreadyPassOP = false;
+                }
+                flag = false;
             }
         }
-        if(flag) bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.success"),true);
+        if(flag && !alreadyPassOP) {
+            bobber.getPlayerOwner().sendMessage(Text.translatable("info.autofish.open_water_detection.success"),true);
+            alreadyPassOP = true;
+            alreadyAlertOP = false;
+        }
 
 
     }
