@@ -62,6 +62,19 @@ public class AutofishScreenBuilder {
                 .setYesNoTextSupplier(yesNoTextSupplier)
                 .build();
 
+        //Enable Open Water Detection
+        AbstractConfigListEntry toggleOpenWaterDetection = entryBuilder.startBooleanToggle(Text.translatable("options.autofish.open_water_detection.title"), config.isOpenWaterDetectEnabled())
+                .setDefaultValue(defaults.isOpenWaterDetectEnabled())
+                .setTooltip(
+                        Text.translatable("options.autofish.open_water_detection.tooltip_0"),
+                        Text.translatable("options.autofish.open_water_detection.tooltip_1"),
+                        Text.translatable("options.autofish.open_water_detection.tooltip_2")
+                )
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setOpenWaterDetectEnabled(newValue);
+                })
+                .setYesNoTextSupplier(yesNoTextSupplier)
+                .build();
         //Enable Break Protection
         AbstractConfigListEntry toggleBreakProtection = entryBuilder.startBooleanToggle(Text.translatable("options.autofish.break_protection.title"), config.isNoBreak())
                 .setDefaultValue(defaults.isNoBreak())
@@ -141,6 +154,19 @@ public class AutofishScreenBuilder {
                     modAutofish.getConfig().setRecastDelay(newValue);
                 })
                 .build();
+        AbstractConfigListEntry randomDelaySlider = entryBuilder.startLongSlider(Text.translatable("options.autofish.random_delay.title"), config.getRandomDelay(), 0, 75)
+                .setDefaultValue(defaults.getRecastDelay())
+                .setTooltip(
+                        Text.translatable("options.autofish.random_delay.tooltip_0"),
+                        Text.translatable("options.autofish.random_delay.tooltip_1"),
+                        Text.translatable("options.autofish.random_delay.tooltip_2"),
+                        Text.translatable("options.autofish.random_delay.tooltip_3")
+                )
+                .setTextGetter(value -> Text.translatable("options.autofish.random_delay.value", value))
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setRandomDelay(newValue);
+                })
+                .build();
 
         //ClearLag Regex
         AbstractConfigListEntry clearLagRegexField = entryBuilder.startTextField(Text.translatable("options.autofish.clear_regex.title"), config.getClearLagRegex())
@@ -159,6 +185,7 @@ public class AutofishScreenBuilder {
         SubCategoryBuilder subCatBuilderBasic = entryBuilder.startSubCategory(Text.translatable("options.autofish.basic.title"));
         subCatBuilderBasic.add(toggleAutofish);
         subCatBuilderBasic.add(toggleMultiRod);
+        subCatBuilderBasic.add(toggleOpenWaterDetection);
         subCatBuilderBasic.add(toggleBreakProtection);
         subCatBuilderBasic.add((togglePersistentMode));
         subCatBuilderBasic.setExpanded(true);
@@ -167,6 +194,7 @@ public class AutofishScreenBuilder {
         subCatBuilderAdvanced.add(toggleSoundDetection);
         subCatBuilderAdvanced.add(toggleForceMPDetection);
         subCatBuilderAdvanced.add(recastDelaySlider);
+        subCatBuilderAdvanced.add(randomDelaySlider);
         subCatBuilderAdvanced.add(clearLagRegexField);
         subCatBuilderAdvanced.setExpanded(true);
 
