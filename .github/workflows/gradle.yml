@@ -20,4 +20,4 @@ jobs:
     - name: Save Artifact
       uses: actions/upload-artifact@v3
       with:
-        path: build/libs/autofish-*.jar
+        path: build/libs/*.jar

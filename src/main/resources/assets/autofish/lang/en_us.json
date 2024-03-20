@@ -56,7 +56,7 @@
   "options.autofish.random_delay.title": "Random Recast Delay Field",
   "options.autofish.random_delay.value": "%d percent",
   "options.autofish.random_delay.tooltip_0": "Add ±% randomness to the Recast Delay",
-  "options.autofish.random_delay.tooltip_1": "For example: Set this to 20% will make.",
+  "options.autofish.random_delay.tooltip_1": "For example: Set this to 20% will make",
   "options.autofish.random_delay.tooltip_2": "a 1500ms delay fall in 1200-1800ms (1500ms ±20%).",
   "options.autofish.random_delay.tooltip_3": "Set this to 0 to disable this function.",
 
