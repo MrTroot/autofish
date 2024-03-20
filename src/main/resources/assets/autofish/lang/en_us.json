@@ -1,6 +1,6 @@
 {
-  "key.autofish.open_gui": "Open Autofish GUI",
-  "options.autofish.title": "Autofish Settings",
+  "key.autofish.open_gui": "Open XPlus Autofish GUI",
+  "options.autofish.title": "XPlus Autofish Settings",
 
   "options.autofish.toggle.on": "\u00A7aOn",
   "options.autofish.toggle.off": "\u00A7eOff",
@@ -52,6 +52,13 @@
   "options.autofish.recast_delay.value": "%d ms",
   "options.autofish.recast_delay.tooltip_0": "Adjusts the delay between catching",
   "options.autofish.recast_delay.tooltip_1": "a fish and recasting the rod.",
+
+  "options.autofish.random_delay.title": "Random Recast Delay Field",
+  "options.autofish.random_delay.value": "%d percent",
+  "options.autofish.random_delay.tooltip_0": "Add ±% randomness to the Recast Delay",
+  "options.autofish.random_delay.tooltip_1": "For example: Set this to 20% will make.",
+  "options.autofish.random_delay.tooltip_2": "a 1500ms delay fall in 1200-1800ms (1500ms ±20%).",
+  "options.autofish.random_delay.tooltip_3": "Set this to 0 to disable this function.",
 
   "options.autofish.clear_regex.title": "ClearLag Chat Pattern",
   "options.autofish.clear_regex.tooltip_0": "Recast the fishing rod when",

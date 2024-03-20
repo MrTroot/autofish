@@ -154,6 +154,19 @@ public class AutofishScreenBuilder {
                     modAutofish.getConfig().setRecastDelay(newValue);
                 })
                 .build();
+        AbstractConfigListEntry randomDelaySlider = entryBuilder.startLongSlider(Text.translatable("options.autofish.random_delay.title"), config.getRandomDelay(), 0, 75)
+                .setDefaultValue(defaults.getRecastDelay())
+                .setTooltip(
+                        Text.translatable("options.autofish.random_delay.tooltip_0"),
+                        Text.translatable("options.autofish.random_delay.tooltip_1"),
+                        Text.translatable("options.autofish.random_delay.tooltip_2"),
+                        Text.translatable("options.autofish.random_delay.tooltip_3")
+                )
+                .setTextGetter(value -> Text.translatable("options.autofish.random_delay.value", value))
+                .setSaveConsumer(newValue -> {
+                    modAutofish.getConfig().setRandomDelay(newValue);
+                })
+                .build();
 
         //ClearLag Regex
         AbstractConfigListEntry clearLagRegexField = entryBuilder.startTextField(Text.translatable("options.autofish.clear_regex.title"), config.getClearLagRegex())
@@ -181,6 +194,7 @@ public class AutofishScreenBuilder {
         subCatBuilderAdvanced.add(toggleSoundDetection);
         subCatBuilderAdvanced.add(toggleForceMPDetection);
         subCatBuilderAdvanced.add(recastDelaySlider);
+        subCatBuilderAdvanced.add(randomDelaySlider);
         subCatBuilderAdvanced.add(clearLagRegexField);
         subCatBuilderAdvanced.setExpanded(true);
 

@@ -12,6 +12,7 @@ public class Config {
     @Expose boolean useSoundDetection = false;
     @Expose boolean forceMPDetection = false;
     @Expose long recastDelay = 1500;
+    @Expose long randomPercent = 50;
     @Expose String clearLagRegex = "\\[ClearLag\\] Removed [0-9]+ Entities!";
 
     public boolean isAutofishEnabled() {
@@ -41,6 +42,10 @@ public class Config {
         return recastDelay;
     }
 
+    public long getRandomDelay(){
+        return randomPercent;
+    }
+
     public String getClearLagRegex() {
         return clearLagRegex;
     }
@@ -65,6 +70,9 @@ public class Config {
 
     public void setRecastDelay(long recastDelay) {
         this.recastDelay = recastDelay;
+    }
+    public void setRandomDelay(long randomPercent){
+        this.randomPercent = randomPercent;
     }
 
     public void setClearLagRegex(String clearLagRegex) {

@@ -52,6 +52,13 @@
   "options.autofish.recast_delay.tooltip_0": "调整收杆和重新投掷钓鱼竿之间的延迟",
   "options.autofish.recast_delay.tooltip_1": "以毫秒 (ms) 为单位.",
 
+  "options.autofish.random_delay.title": "随机重新投掷延迟",
+  "options.autofish.random_delay.value": "百分之 %d",
+  "options.autofish.random_delay.tooltip_0": "为投掷钓鱼竿的延迟添加 ±% 的变化量",
+  "options.autofish.random_delay.tooltip_1": "例如: 当默认延迟为1500ms时将该选项设置为20%，",
+  "options.autofish.random_delay.tooltip_2": "会使重新投掷延迟落在1200-1800ms区间内 (1500ms ±20%).",
+  "options.autofish.random_delay.tooltip_3": "将该选项设置为0以禁用此功能",
+
   "options.autofish.clear_regex.title": "启用持续模式",
   "options.autofish.clear_regex.tooltip_0": "使用聊天栏正则表达式",
   "options.autofish.clear_regex.tooltip_1": "来触发重新投掷钓鱼竿.",

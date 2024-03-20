@@ -146,7 +146,7 @@ public class Autofish {
     }
 
     public void queueRecast() {
-        modAutofish.getScheduler().scheduleAction(ActionType.RECAST, modAutofish.getConfig().getRecastDelay(), () -> {
+        modAutofish.getScheduler().scheduleAction(ActionType.RECAST, getRandomDelay(), () -> {
             //State checks to ensure we can still fish once this runs
             if(hookExists) return;
             if(!isHoldingFishingRod()) return;
@@ -157,7 +157,7 @@ public class Autofish {
     }
 
     private void queueRodSwitch(){
-        modAutofish.getScheduler().scheduleAction(ActionType.ROD_SWITCH, modAutofish.getConfig().getRecastDelay() - 250, () -> {
+        modAutofish.getScheduler().scheduleAction(ActionType.ROD_SWITCH, (long) (getRandomDelay() * 0.83), () -> {
             if(!modAutofish.getConfig().isMultiRod()) return;
 
             switchToFirstRod(client.player);
@@ -286,5 +286,12 @@ public class Autofish {
     private boolean shouldUseMPDetection(){
         if(modAutofish.getConfig().isForceMPDetection()) return true;
         return !client.isInSingleplayer();
+    }
+
+    private long getRandomDelay(){
+        return Math.random() >=0.5 ?
+                (long) (modAutofish.getConfig().getRecastDelay() * (1 - (Math.random() * modAutofish.getConfig().getRandomDelay() * 0.01))) :
+                (long) (modAutofish.getConfig().getRecastDelay() * (1 + (Math.random() * modAutofish.getConfig().getRandomDelay() * 0.01)));
+
     }
 }
